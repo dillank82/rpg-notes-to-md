@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "@types/node": "^25.0.9"
+  },
+  "name": "rpg-notes-to-md-migration",
+  "version": "1.0.0",
+  "description": "helps to convert RPG Notes export files to .md format",
+  "main": "index.js",
+  "dependencies": {
+    "undici-types": "^7.16.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dillank82/rpg-notes-to-md.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dillank82/rpg-notes-to-md/issues"
+  },
+  "homepage": "https://github.com/dillank82/rpg-notes-to-md#readme"
+}
