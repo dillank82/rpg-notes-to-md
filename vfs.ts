@@ -29,11 +29,18 @@ const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
                             const notes = subjectNotes
                                 .filter(note => note.subject_id === sub.id)
                                 .map(note => `> ${note.name}`).join('\n')
-
+                            const tags = subjectTagsAttachments
+                                .filter(att => { att.subject_id === sub.id })
+                                .map(att => {
+                                    const tag = subjectTags.find(tag => tag.id === att.tag_id)
+                                    return `#${tag}`
+                                }).join('\n')
+                            
                             const content = `
                             ${sub.description}
                             \n# Description\n${sub.fullDescription}
                             \n${notes}
+                            \n${tags}
                         `
                             const subjectPath = joinPaths(catPath, `${sanitize(sub.name)}.md`)
                             vfs[subjectPath] = content
