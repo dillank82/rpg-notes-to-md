@@ -1,4 +1,5 @@
 import { RPGNotesRequiredData } from './interfaces/RPGNotesData'
+import { VirtualFileSystem } from './interfaces/VirtualFileSystem'
 
 const joinPaths = (...parts: string[]) => parts.join('/').replace(/\/+/g, '/')
 const sanitize = (name: string) => name.replace(/[\/:*?"<>|]/g, '-')
@@ -30,7 +31,7 @@ const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
                                 .filter(note => note.subject_id === sub.id)
                                 .map(note => `> ${note.name}`).join('\n')
                             const tags = subjectTagsAttachments
-                                .filter(att => { att.subject_id === sub.id })
+                                .filter(att => att.subject_id === sub.id)
                                 .map(att => {
                                     const tag = subjectTags.find(tag => tag.id === att.tag_id)
                                     return `#${tag}`
