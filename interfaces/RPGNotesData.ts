@@ -47,7 +47,7 @@ interface SubjectNote {
 
 interface SubjectTag {
     id: number
-    campaign_id: number
+    // campaign_id: number
     isGlobal: boolean
     name: string
 }

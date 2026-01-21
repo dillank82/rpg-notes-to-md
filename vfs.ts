@@ -36,7 +36,7 @@ const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
                                 .filter(att => att.subject_id === sub.id)
                                 .map(att => {
                                     const tag = subjectTags.find(tag => tag.id === att.tag_id)
-                                    return `#${tag}`
+                                    return `#${tag?.isGlobal ? tag.name : tag?.name+' from '+campaign.name}`
                                 }).join('\n')
 
                             const content = `
