@@ -36,7 +36,7 @@ const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
                                 .filter(att => att.subject_id === sub.id)
                                 .map(att => {
                                     const tag = subjectTags.find(tag => tag.id === att.tag_id)
-                                    return `#${tag?.isGlobal ? tag.name : tag?.name + ' from ' + campaign.name}`
+                                    return `#${tag?.isGlobal ? tag.name : `${tag?.name} from ${campaign.name}`}`
                                 }).join('\n')
 
                             const content = `
@@ -67,7 +67,7 @@ const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
                 vfs[path1] += `[${name2}] ${c.comment_1 && ('- ' + c.comment_1)} \n`
             }
             if (path2 && name1) {
-                vfs[path2] += `[${name1}] - ${c.comment_2 && ('- ' + c.comment_2)} \n`
+                vfs[path2] += `[${name1}] ${c.comment_2 && ('- ' + c.comment_2)} \n`
             }
         })
     }
