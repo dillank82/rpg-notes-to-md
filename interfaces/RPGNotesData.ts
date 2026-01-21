@@ -12,7 +12,7 @@ export interface RPGNotesRequiredData {
 }
 
 interface Campaign {
-    description: string
+    description?: string
     name: string
     id: number
 }
@@ -20,14 +20,14 @@ interface Campaign {
 interface Category {
     campaign_id: number
     parentCategory_id: number
-    description: string
+    description?: string
     id: number
     name: string
 }
 
 interface Connection {
-    comment_1: string
-    comment_2: string
+    comment_1?: string
+    comment_2?: string
     // id: number
     subject1_id: number
     subject2_id: number
@@ -60,7 +60,7 @@ interface SubjectTagAttachment {
 interface Subject {
     category_id: number
     fullDescription: string
-    description: string
+    description?: string
     id: number
     name: string
 }
