@@ -7,6 +7,8 @@ const sanitize = (name: string) => name.replace(/[\/:*?"<>|]/g, '-')
 const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
     const vfs: VirtualFileSystem = {}
     const { campaigns, categories, connections, storyNotes, subjectNotes, subjectTags, subjectTagsAttachments, subjects } = rawData.campaignsData
+    const subjectIdToPath = new Map<number, string>()
+    const subjectIdToName = new Map<number, string>()
 
     campaigns.forEach(campaign => {
         const campaignPath = sanitize(campaign.name)
@@ -36,7 +38,7 @@ const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
                                     const tag = subjectTags.find(tag => tag.id === att.tag_id)
                                     return `#${tag}`
                                 }).join('\n')
-                            
+
                             const content = `
                             ${sub.description}
                             \n# Description\n${sub.fullDescription}
@@ -45,13 +47,30 @@ const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
                         `
                             const subjectPath = joinPaths(catPath, `${sanitize(sub.name)}.md`)
                             vfs[subjectPath] = content
+                            subjectIdToPath.set(sub.id, subjectPath)
+                            subjectIdToName.set(sub.id, sub.name)
                         })
 
                     buildCategories(cat.id, catPath)
                 })
         }
-
         buildCategories(-1, campaignPath)
+        const addConections = () => {
+            connections.forEach((c) => {
+                const path1 = subjectIdToPath.get(c.subject1_id)
+                const path2 = subjectIdToPath.get(c.subject2_id)
+                const name1 = subjectIdToName.get(c.subject1_id)
+                const name2 = subjectIdToName.get(c.subject2_id)
+
+                if (path1 && name2) {
+                    vfs[path1] += `[${name2}] ${c.comment_1 && ('- ' + c.comment_1)} \n`
+                }
+                if (path2 && name1) {
+                    vfs[path2] += `[${name1}] - ${c.comment_2 && ('- ' + c.comment_2)} \n`
+                }
+            })
+        }
+        addConections()
     })
     return vfs
 }
