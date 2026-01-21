@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@types/jszip": "^3.4.1",
     "@types/node": "^25.0.9"
   },
   "name": "rpg-notes-to-md-migration",
@@ -7,6 +8,7 @@
   "description": "helps to convert RPG Notes export files to .md format",
   "main": "index.js",
   "dependencies": {
+    "jszip": "^3.10.1",
     "undici-types": "^7.16.0"
   },
   "scripts": {
