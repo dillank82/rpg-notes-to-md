@@ -1,3 +1,3 @@
-interface VirtualFileSystem {
+export interface VirtualFileSystem {
   [filePath: string]: string;
 }
