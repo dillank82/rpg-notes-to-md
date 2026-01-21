@@ -4,7 +4,7 @@ import { VirtualFileSystem } from './interfaces/VirtualFileSystem'
 const joinPaths = (...parts: string[]) => parts.join('/').replace(/\/+/g, '/')
 const sanitize = (name: string) => name.replace(/[\/:*?"<>|]/g, '-')
 
-const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
+export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
     const vfs: VirtualFileSystem = {}
     const { campaigns, categories, connections, storyNotes, subjectNotes, subjectTags, subjectTagsAttachments, subjects } = rawData.campaignsData
     const subjectIdToPath = new Map<number, string>()
