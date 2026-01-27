@@ -1,5 +1,5 @@
 import JSZip from 'jszip'
-import { VirtualFileSystem } from './interfaces/VirtualFileSystem'
+import { VirtualFileSystem } from '../interfaces/VirtualFileSystem'
 import { normalizePath } from './utils'
 
 export const generateZipFromVFS = async (vfs: VirtualFileSystem): Promise<Blob> => {

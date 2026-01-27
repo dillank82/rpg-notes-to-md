@@ -1,5 +1,5 @@
-import { RPGNotesRequiredData } from './interfaces/RPGNotesData'
-import { VirtualFileSystem } from './interfaces/VirtualFileSystem'
+import { RPGNotesRequiredData } from '../interfaces/RPGNotesData'
+import { VirtualFileSystem } from '../interfaces/VirtualFileSystem'
 import { normalizePath } from './utils'
 
 const joinPaths = (...parts: string[]) => parts.join('/')
