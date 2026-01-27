@@ -1,7 +1,8 @@
 import { RPGNotesRequiredData } from './interfaces/RPGNotesData'
 import { VirtualFileSystem } from './interfaces/VirtualFileSystem'
+import { normalizePath } from './utils'
 
-const joinPaths = (...parts: string[]) => parts.join('/').replace(/\/+/g, '/')
+const joinPaths = (...parts: string[]) => parts.join('/')
 const sanitize = (name: string) => name.replace(/[\/:*?"<>|]/g, '-')
 
 export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
@@ -16,7 +17,10 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
         storyNotes
             .filter(note => note.campaign_id === campaign.id)
             .forEach(note => {
-                const storyNotePath = joinPaths(campaignPath, 'StoryNotes', `Note ${note.id}.md`)
+                const storyNotePath = normalizePath(
+                    joinPaths(campaignPath, 'StoryNotes', `Note ${note.id}.md`),
+                    true
+                )
                 vfs[storyNotePath] = note.description
             })
 
@@ -24,7 +28,10 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
             categories
                 .filter(c => c.campaign_id === campaign.id && c.parentCategory_id === parentId)
                 .forEach(cat => {
-                    const catPath = joinPaths(currentPath, sanitize(cat.name))
+                    const catPath = normalizePath(
+                        joinPaths(currentPath, sanitize(cat.name)),
+                        false
+                    )
 
                     subjects
                         .filter(s => s.category_id === cat.id)
@@ -45,7 +52,10 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
                             \n${notes}
                             \n${tags}
                         `
-                            const subjectPath = joinPaths(catPath, `${sanitize(sub.name)}.md`)
+                            const subjectPath = normalizePath(
+                                joinPaths(catPath, `${sanitize(sub.name)}.md`),
+                                true
+                            )
                             vfs[subjectPath] = content
                             subjectIdToPath.set(sub.id, subjectPath)
                             subjectIdToName.set(sub.id, sub.name)
