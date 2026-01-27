@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "types": ["vitest/globals"] 
+    "types": ["vitest/globals"],
+    "lib": ["ESNext"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts"]
 }
