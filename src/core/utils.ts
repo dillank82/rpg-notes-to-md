@@ -10,9 +10,12 @@ export const normalizePath = (path: string, isFile: boolean = true): string => {
         : normalizedPath
 }
 
-export const sanitizeName = (name: string): string => name
-    .trim()
-    .replace(/\.+$/, '')
-    .trim()
-    .replace(/[\\/:*?"<>|#^[\]%]/g, '-')
-    || 'Untitled'
+export const sanitizeName = (name: string): string => {
+    let sanitizedName = name.trim()
+    while (sanitizedName.endsWith('.') || sanitizedName.endsWith(' ')) {
+        sanitizedName = sanitizedName
+            .replace(/\.+$/, '')
+            .trim()
+    }
+    return sanitizedName.replace(/[\\/:*?"<>|#^[\]%]/g, '-') || 'Untitled'
+}
