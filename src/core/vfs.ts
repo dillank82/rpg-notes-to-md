@@ -1,14 +1,8 @@
 import { RPGNotesRequiredData } from '../interfaces/RPGNotesData'
 import { VirtualFileSystem } from '../interfaces/VirtualFileSystem'
-import { normalizePath } from './utils'
+import { normalizePath, sanitizeName } from './utils'
 
 const joinPaths = (...parts: string[]) => parts.join('/')
-const sanitizeName = (name: string): string => name
-    .trim()
-    .replace(/\.+$/, '')
-    .trim()
-    .replace(/[\\/:*?"<>|]/g, '-')
-    || 'Untitled'
 
 export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
     const vfs: VirtualFileSystem = {}
