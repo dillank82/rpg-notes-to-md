@@ -3,7 +3,12 @@ import { VirtualFileSystem } from '../interfaces/VirtualFileSystem'
 import { normalizePath } from './utils'
 
 const joinPaths = (...parts: string[]) => parts.join('/')
-const sanitize = (name: string) => name.replace(/[\/:*?"<>|]/g, '-')
+const sanitizeName = (name: string): string => name
+    .trim()
+    .replace(/\.+$/, '')
+    .trim()
+    .replace(/[\\/:*?"<>|]/g, '-')
+    || 'Untitled'
 
 export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
     const vfs: VirtualFileSystem = {}
@@ -12,7 +17,7 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
     const subjectIdToName = new Map<number, string>()
 
     campaigns.forEach(campaign => {
-        const campaignPath = sanitize(campaign.name)
+        const campaignPath = sanitizeName(campaign.name)
 
         storyNotes
             .filter(note => note.campaign_id === campaign.id)
@@ -29,7 +34,7 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
                 .filter(c => c.campaign_id === campaign.id && c.parentCategory_id === parentId)
                 .forEach(cat => {
                     const catPath = normalizePath(
-                        joinPaths(currentPath, sanitize(cat.name)),
+                        joinPaths(currentPath, sanitizeName(cat.name)),
                         false
                     )
 
@@ -53,7 +58,7 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
                             \n${tags}
                         `
                             const subjectPath = normalizePath(
-                                joinPaths(catPath, `${sanitize(sub.name)}.md`),
+                                joinPaths(catPath, `${sanitizeName(sub.name)}.md`),
                                 true
                             )
                             vfs[subjectPath] = content
