@@ -14,5 +14,5 @@ export const sanitizeName = (name: string): string => name
     .trim()
     .replace(/\.+$/, '')
     .trim()
-    .replace(/[\\/:*?"<>|]/g, '-')
+    .replace(/[\\/:*?"<>|#^[\]%]/g, '-')
     || 'Untitled'
