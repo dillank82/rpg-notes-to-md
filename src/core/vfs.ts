@@ -42,14 +42,14 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
                                 .filter(att => att.subject_id === sub.id)
                                 .map(att => {
                                     const tag = subjectTags.find(tag => tag.id === att.tag_id)
-                                    return `#${tag?.isGlobal ? tag.name : `${tag?.name} from ${campaign.name}`}`
-                                }).join('\n')
+                                    return `${tag?.isGlobal ? tag.name : `${tag?.name} (${campaign.name})`}`
+                                }).join(', ')
 
                             const content = `
+                            ---tags: [${tags}]---
                             ${sub.description}
                             \n# Description\n${sub.fullDescription}
                             \n${notes}
-                            \n${tags}
                         `
                             const subjectPath = normalizePath(
                                 joinPaths(catPath, `${sanitizeName(sub.name)}.md`),
