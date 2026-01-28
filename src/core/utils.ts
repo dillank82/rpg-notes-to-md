@@ -1,5 +1,6 @@
 export const normalizePath = (path: string, isFile: boolean = true): string => {
     const normalizedPath = path
+        .trim()
         .replace(/\\/g, '/') // replace backslash for windows
         .replace(/\/+/g, '/') // collapse multiple slashes
         .replace(/^\/+/, '') // remove slash at the beginning
