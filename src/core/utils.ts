@@ -1,3 +1,5 @@
+import { RESERVED_NAMES } from "../data/reservedNames"
+
 export const normalizePath = (path: string, isFile: boolean = true): string => {
     const normalizedPath = path
         .trim()
@@ -10,12 +12,13 @@ export const normalizePath = (path: string, isFile: boolean = true): string => {
         : normalizedPath
 }
 
-export const sanitizeName = (name: string): string => {
+export const sanitizeName = (name: string, type: string = 'RPGNotes'): string => {
     let sanitizedName = name.trim()
     while (sanitizedName.endsWith('.') || sanitizedName.endsWith(' ')) {
         sanitizedName = sanitizedName
             .replace(/\.+$/, '')
             .trim()
     }
+    if (RESERVED_NAMES.has(sanitizedName.toUpperCase())) sanitizedName += `_${type}` 
     return sanitizedName.replace(/[\\/:*?"<>|#^[\]%]/g, '-') || 'Untitled'
 }

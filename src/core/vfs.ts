@@ -41,7 +41,7 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
     }
 
     campaigns.forEach(campaign => {
-        const campaignPath = sanitizeName(campaign.name);
+        const campaignPath = sanitizeName(campaign.name, 'campaign');
 
         (storyNotesByCampaign.get(campaign.id) || []).forEach(note => {
             const storyNotePath = joinPaths(campaignPath, 'StoryNotes', `Note ${note.id}.md`)
@@ -50,7 +50,7 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
 
         const buildCategories = (parentId: number, currentPath: string) => {
             (categoriesByParentId.get(parentId) || []).forEach(cat => {
-                const catPath = joinPaths(currentPath, sanitizeName(cat.name));
+                const catPath = joinPaths(currentPath, sanitizeName(cat.name, 'category'));
 
                 (subjectsByCategory.get(cat.id) || []).forEach(sub => {
                     const notes = (notesBySubject.get(sub.id) || []).map(note => `> ${note.name}`).join('\n')
@@ -67,7 +67,7 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
                         \n# Description\n${sub.fullDescription}
                         \n${notes}
                     `
-                    const subjectPath = joinPaths(catPath, `${sanitizeName(sub.name)}.md`)
+                    const subjectPath = joinPaths(catPath, `${sanitizeName(sub.name, 'note')}.md`)
                     const finalSubjectPath = registerPath(subjectPath, content)
                     subjectIdToPath.set(sub.id, finalSubjectPath)
                     subjectIdToName.set(sub.id, sub.name)
