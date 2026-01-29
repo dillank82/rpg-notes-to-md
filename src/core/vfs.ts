@@ -26,13 +26,16 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
     const subjectIdToPath = new Map<number, string>()
     const subjectIdToName = new Map<number, string>()
 
+    const occupiedPaths = new Set<string>()
+
     const registerPath = (path: string, content: string) => {
         let finalPath = path
         let counter = 1
-        while (finalPath in vfs) {
-            finalPath = finalPath.replace(/\.md$/, `-${counter}.md`)
+        while(occupiedPaths.has(finalPath.toLowerCase())) {
+            finalPath = path.replace(/\.md$/, `-${counter}.md`)
             counter++
         }
+        occupiedPaths.add(finalPath.toLowerCase())
         vfs[finalPath] = content
         return finalPath
     }
