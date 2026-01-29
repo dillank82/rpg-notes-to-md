@@ -1,14 +1,24 @@
 export interface RPGNotesRequiredData {
-    campaignsData: {
-        campaigns: Campaign[]
-        categories: Category[]
-        connections: Connection[]
-        storyNotes: StoryNote[]
-        subjectNotes: SubjectNote[]
-        subjectTags: SubjectTag[]
-        subjectTagsAttachments: SubjectTagAttachment[]
-        subjects: Subject[]
-    }
+    campaignsData: CampaignsData
+}
+
+export interface CampaignsData {
+    campaigns: Campaign[]
+    categories: Category[]
+    connections: Connection[]
+    storyNotes: StoryNote[]
+    subjectNotes: SubjectNote[]
+    subjectTags: SubjectTag[]
+    subjectTagsAttachments: SubjectTagAttachment[]
+    subjects: Subject[]
+}
+
+export interface RPGNotesDataMaps {
+    categoriesByParentId: Map<unknown, Category[]>,
+    subjectsByCategory: Map<unknown, Subject[]>,
+    notesBySubject: Map<unknown, SubjectNote[]>,
+    tagsAttachmentsBySubject: Map<unknown, SubjectTagAttachment[]>,
+    storyNotesByCampaign: Map<unknown, StoryNote[]>,
 }
 
 interface Campaign {
