@@ -1,41 +1,23 @@
-import { RPGNotesRequiredData } from '../interfaces/RPGNotesData'
+import { CampaignsData, RPGNotesDataMaps } from '../interfaces/RPGNotesData'
 import { VirtualFileSystem } from '../interfaces/VirtualFileSystem'
-import { normalizePath, sanitizeName } from './utils'
+import { generateNoteContent, normalizePath, sanitizeName } from './utils'
+import { PathRegistry } from './vfs/pathRegistry'
 
-const joinPaths = (...parts: string[]) => normalizePath(parts.join('/'))
-const groupBy = <T>(array: T[], key: keyof T): Map<unknown, T[]> => {
-    const map = new Map<unknown, T[]>()
-    array.forEach(item => {
-        const groupKey = item[key]
-        if (!map.has(groupKey)) map.set(groupKey, [])
-        map.get(groupKey).push(item)
-    })
-    return map
-}
 
-export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem => {
+export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): VirtualFileSystem => {
+    const joinPaths = (...parts: string[]) => normalizePath(parts.join('/'))
+
     const vfs: VirtualFileSystem = {}
-    const { campaigns, categories, connections, storyNotes, subjectNotes, subjectTags, subjectTagsAttachments, subjects } = rawData.campaignsData
 
-    const categoriesByParentId = groupBy(categories, 'parentCategory_id')
-    const subjectsByCategory = groupBy(subjects, 'category_id')
-    const notesBySubject = groupBy(subjectNotes, 'subject_id')
-    const tagsAttachmentsBySubject = groupBy(subjectTagsAttachments, 'subject_id')
-    const storyNotesByCampaign = groupBy(storyNotes, 'campaign_id')
+    const { campaigns, connections, subjectTags } = data
+    const { categoriesByParentId, subjectsByCategory, notesBySubject, tagsAttachmentsBySubject, storyNotesByCampaign } = maps
 
     const subjectIdToPath = new Map<number, string>()
     const subjectIdToName = new Map<number, string>()
 
-    const occupiedPaths = new Set<string>()
-
-    const registerPath = (path: string, content: string) => {
-        let finalPath = path
-        let counter = 1
-        while(occupiedPaths.has(finalPath.toLowerCase())) {
-            finalPath = path.replace(/\.md$/, `-${counter}.md`)
-            counter++
-        }
-        occupiedPaths.add(finalPath.toLowerCase())
+    const registry = new PathRegistry()
+    const regFile = (path: string, content: string) => {
+        const finalPath = registry.resolve(path)
         vfs[finalPath] = content
         return finalPath
     }
@@ -45,7 +27,7 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
 
         (storyNotesByCampaign.get(campaign.id) || []).forEach(note => {
             const storyNotePath = joinPaths(campaignPath, 'StoryNotes', `Note ${note.id}.md`)
-            registerPath(storyNotePath, note.description)
+            regFile(storyNotePath, note.description)
         })
 
         const buildCategories = (parentId: number, currentPath: string) => {
@@ -59,16 +41,9 @@ export const buildStructure = (rawData: RPGNotesRequiredData): VirtualFileSystem
                         return `${tag?.isGlobal ? tag.name : `${tag?.name} (${campaign.name})`}`
                     }).join(', ')
 
-                    const content = `
-                        ---
-                        tags: [${tags}]
-                        ---
-                        ${sub.description}
-                        \n# Description\n${sub.fullDescription}
-                        \n${notes}
-                    `
+                    const content = generateNoteContent(tags, sub.description, sub.fullDescription, notes)
                     const subjectPath = joinPaths(catPath, `${sanitizeName(sub.name, 'note')}.md`)
-                    const finalSubjectPath = registerPath(subjectPath, content)
+                    const finalSubjectPath = regFile(subjectPath, content)
                     subjectIdToPath.set(sub.id, finalSubjectPath)
                     subjectIdToName.set(sub.id, sub.name)
                 })
