@@ -1,4 +1,4 @@
-import { CampaignsData, RPGNotesDataMaps, RPGNotesRequiredData } from "../../interfaces/RPGNotesData"
+import { CampaignsData, RPGNotesDataMaps, RPGNotesRequiredData } from "../interfaces/RPGNotesData"
 
 const groupBy = <T>(array: T[], key: keyof T): Map<unknown, T[]> => {
     const map = new Map<unknown, T[]>()

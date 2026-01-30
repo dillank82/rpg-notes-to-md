@@ -1,7 +1,8 @@
-import { CampaignsData, RPGNotesDataMaps } from '../interfaces/RPGNotesData'
-import { VirtualFileSystem } from '../interfaces/VirtualFileSystem'
-import { generateNoteContent, normalizePath, sanitizeName } from './utils'
-import { PathRegistry } from './vfs/pathRegistry'
+import { CampaignsData, RPGNotesDataMaps } from '../../interfaces/RPGNotesData'
+import { VirtualFileSystem } from '../../interfaces/VirtualFileSystem'
+import { normalizePath, sanitizeName } from '../utils'
+import { generateNoteContent } from './generateNoteContent'
+import { PathRegistry } from './pathRegistry'
 
 
 export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): VirtualFileSystem => {

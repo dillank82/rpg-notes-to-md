@@ -22,15 +22,3 @@ export const sanitizeName = (name: string, type: string = 'RPGNotes'): string =>
     if (RESERVED_NAMES.has(sanitizedName.toUpperCase())) sanitizedName += `_${type}`
     return sanitizedName.replace(/[\\/:*?"<>|#^[\]%]/g, '-') || 'Untitled'
 }
-
-export const generateNoteContent = (tags: string, description: string, body: string, notes: string) => {
-    return `
-        ---
-        tags: [${tags}]
-        ---
-        ${description}
-        \n# Description\n${body}
-        \n${notes}
-        \n#Connections
-    `
-}
