@@ -22,8 +22,7 @@ describe('VFSBuilder', () => {
         ...overrides
     })
 
-    it.skip('should correctly create file structure', () => {
-        // marked with skip because of problems with generateNoteContent
+    it('should correctly create file structure', () => {
         const data = createMockData({
             campaigns: [{ id: 47, description: ':)', name: 'Cool Campaign' }],
         })
@@ -47,16 +46,17 @@ describe('VFSBuilder', () => {
         const vfs = buildStructure(data, maps)
         expect(vfs).toEqual({})
     })
-    it.skip('should correctly integrate with PathRegistry', () => {
-        // bug in integration
+    it('should correctly integrate with PathRegistry', () => {
         const data = createMockData({
             campaigns: [{ id: 1, name: 'campaign' }]
         })
         const maps = createMockMaps({
             categoriesByParentId: new Map([[-1, [{ campaign_id: 1, parentCategory_id: -1, id: 1, name: 'category' }]]]),
             subjectsByCategory: new Map([
-                [1, [{ category_id: 1, fullDescription: '', id: 1, name: 'subject' }]],
-                [1, [{ category_id: 1, fullDescription: '', id: 2, name: 'subject' }]]
+                [1, [
+                    { category_id: 1, fullDescription: '', id: 1, name: 'subject' },
+                    { category_id: 1, fullDescription: '', id: 2, name: 'subject' }
+                ]],
             ])
         })
         const vfs = buildStructure(data, maps)
@@ -78,24 +78,18 @@ describe('VFSBuilder', () => {
         const vfs = buildStructure(data, maps)
         const subject = vfs['campaign/category/subject.md']
         expect(subject).toMatchInlineSnapshot(`
-          "
-                  ---
-                  tags: []
-                  ---
-                  undefined
-                  
+          "---
+          tags: []
+          ---
+
           # Description
 
-                  
           > subject_note_1
           > subject note 2 (without snake_case)
-                  
-          #Connections
-              "
+          # Connections"
         `)
-        // now it's bad result because of many tabs. should fix and test generateNoteContent and update snapshots then
     })
-    it.skip('should correctly add tags to file and add name of campaign to non-global tags', () => {
+    it('should correctly add tags to file and add name of campaign to non-global tags', () => {
         const data = createMockData({
             campaigns: [{ id: 1, name: 'campaign' }],
             subjectTags: [
@@ -112,7 +106,7 @@ describe('VFSBuilder', () => {
         const subject = vfs['campaign/category/subject.md']
         expect(subject.startsWith('---\ntags: [Global tag, Local tag (campaign)]\n---')).toBe(true)
     })
-    it.skip('should correctly add connections to files', () => {
+    it('should correctly add connections to files', () => {
         const data = createMockData({
             campaigns: [{ id: 1, name: 'campaign' }],
             connections: [{ comment_1: 'link description', comment_2: undefined, subject1_id: 1, subject2_id: 2 }]
@@ -128,37 +122,26 @@ describe('VFSBuilder', () => {
         const subject1 = vfs['campaign/category/subject1.md']
         const subject2 = vfs['campaign/category/subject2.md']
         expect(subject1).toMatchInlineSnapshot(`
-          "
-                  ---
-                  tags: []
-                  ---
-                  undefined
-                  
+          "---
+          tags: []
+          ---
+
           # Description
 
-                  
 
-                  
-          #Connections
-              [[subject2]] - link description 
-          "
+          # Connections
+          [[subject2]] - link description"
         `)
         expect(subject2).toMatchInlineSnapshot(`
-          "
-                  ---
-                  tags: []
-                  ---
-                  undefined
-                  
+          "---
+          tags: []
+          ---
+
           # Description
 
-                  
 
-                  
-          #Connections
-              [[subject1]] undefined 
-          "
+          # Connections
+          [[subject1]] "
         `)
     })
-    // it's also fake result. should fix these undefined in text
 })
