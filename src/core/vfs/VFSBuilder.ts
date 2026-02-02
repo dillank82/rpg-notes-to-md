@@ -61,10 +61,10 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): Vir
             const name2 = subjectIdToName.get(c.subject2_id)
 
             if (path1 && name2) {
-                vfs[path1] += `[[${name2}]] ${c.comment_1 && ('- ' + c.comment_1)} \n`
+                vfs[path1] += `\n[[${name2}]] ${c.comment_1 ? ('- ' + c.comment_1) : ''}`
             }
             if (path2 && name1) {
-                vfs[path2] += `[[${name1}]] ${c.comment_2 && ('- ' + c.comment_2)} \n`
+                vfs[path2] += `\n[[${name1}]] ${c.comment_2 ? ('- ' + c.comment_2) : ''}`
             }
         })
     }
