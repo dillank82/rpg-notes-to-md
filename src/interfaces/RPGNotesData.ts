@@ -1,5 +1,5 @@
 export interface RPGNotesRequiredData {
-    campaignsData: CampaignsData
+    campaignsData: string
 }
 
 export interface CampaignsData {
