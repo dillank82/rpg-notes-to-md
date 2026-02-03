@@ -1,6 +1,10 @@
 import { ChangeEvent, DragEvent, useState } from "react"
 
-export const FileSelector = () => {
+interface FileSelectorProps {
+    onFileSelect: (file: File) => void
+}
+
+export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
     const [isDragging, setIsDragging] = useState(false)
     
     const processFile = (file: File) => {
@@ -8,6 +12,7 @@ export const FileSelector = () => {
         alert("App works only with .json files")
         return
         }
+        onFileSelect(file)
     }
     
     const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
