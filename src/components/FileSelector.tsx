@@ -43,18 +43,20 @@ export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
              isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
             }`}
         >
-            <label htmlFor="file-upload" className="cursor-pointer">
+            <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2" aria-live="polite">
                 {isDragging 
                 ? "Drop file here" 
                 : "Choose export file from RPG Notes (.json)"}
+                
+                <input 
+                    type="file"
+                    id="file-upload"
+                    accept=".json"
+                    onChange={(e) => {handleFileChange(e)}}
+                    className="sr-only"
+                />
             </label>
-            <input 
-                type="file"
-                id="file-upload"
-                accept=".json"
-                onChange={(e) => {handleFileChange(e)}}
-                className="hidden"
-            />
+            
         </div>
     )
 }
