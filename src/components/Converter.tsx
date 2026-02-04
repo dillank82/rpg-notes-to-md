@@ -1,12 +1,14 @@
+import { useState } from "react"
 import { useConverter } from "../hooks/useConverter"
 import { FileSelector } from "./FileSelector"
 
 export const Converter = () => {
+    const [file, setFile] = useState<File | null>(null)
     const { convert, status, error, downloadUrl } = useConverter()
     return (
         <main className="w-full max-w-2xl bg-white rounded-xl shadow-sm p-6">
             {(status === 'idle' || status === 'error') && (
-                <FileSelector onFileSelect={convert} />
+                <FileSelector onFileSelect={setFile} />
             )}
 
             {status === 'processing' && <p>Converting...</p>}
