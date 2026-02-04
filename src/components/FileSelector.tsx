@@ -39,7 +39,7 @@ export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            className={`border-2 border-dashed p-10 transition-colors ${
+            className={`border-2 border-dashed p-10 transition-colors rounded-sm ${
              isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
             }`}
         >
