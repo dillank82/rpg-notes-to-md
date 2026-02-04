@@ -25,7 +25,7 @@ export const Converter = () => {
                         <a href={downloadUrl} download="obsidian_vault.zip">
                             Download .zip
                         </a>
-                        <button onClick={() => window.location.reload()}>Start again</button>
+                        <Button onClick={() => window.location.reload()}>Start again</Button>
                     </div>
                 </MessageBox>
             )}
