@@ -32,12 +32,14 @@ export const Converter = () => {
 
             {error && <MessageBox variant="error"><p>{error}</p></MessageBox>}
 
-            <Button 
-                onClick={async () => { await convert(file) }}
-                isLoading={!file}
-            >
-                Convert
-            </Button>
+            {(status === 'idle' || status === 'error') && (
+                <Button
+                    onClick={async () => { await convert(file) }}
+                    isLoading={!file}
+                >
+                    Convert
+                </Button>
+            )}
         </main>
     )
 }      
