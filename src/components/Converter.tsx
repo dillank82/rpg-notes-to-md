@@ -7,7 +7,10 @@ export const Converter = () => {
     const [file, setFile] = useState<File | null>(null)
     const { convert, status, error, downloadUrl } = useConverter()
     return (
-        <main className="w-full max-w-2xl bg-white rounded-xl shadow-sm p-6">
+        <main className="
+            w-full max-w-2xl h-full bg-white shadow-sm p-6 flex flex-col items-center
+            md:rounded-xl
+        ">
             {(status === 'idle' || status === 'error') && (
                 <FileSelector onFileSelect={setFile} />
             )}
@@ -24,7 +27,7 @@ export const Converter = () => {
                 </div>
             )}
 
-            {error && <div className="error-toast">{error}</div>}
+            {error && <div>{error}</div>}
 
             <Button 
                 onClick={async () => { await convert(file) }}
