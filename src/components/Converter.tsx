@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useConverter } from "../hooks/useConverter"
 import { FileSelector } from "./FileSelector"
 import { Button } from "./Button"
+import { MessageBox } from "./MessageBox"
 
 export const Converter = () => {
     const [file, setFile] = useState<File | null>(null)
@@ -15,19 +16,21 @@ export const Converter = () => {
                 <FileSelector onFileSelect={setFile} />
             )}
 
-            {status === 'processing' && <p>Converting...</p>}
+            {status === 'processing' && <MessageBox><p>Converting...</p></MessageBox>}
 
             {status === 'success' && downloadUrl && (
-                <div>
-                    <p>Done! Your archive is ready for migration.</p>
-                    <a href={downloadUrl} download="obsidian_vault.zip">
-                        Download .zip
-                    </a>
-                    <button onClick={() => window.location.reload()}>Start again</button>
-                </div>
+                <MessageBox>
+                    <div>
+                        <p>Done! Your archive is ready for migration.</p>
+                        <a href={downloadUrl} download="obsidian_vault.zip">
+                            Download .zip
+                        </a>
+                        <button onClick={() => window.location.reload()}>Start again</button>
+                    </div>
+                </MessageBox>
             )}
 
-            {error && <div>{error}</div>}
+            {error && <MessageBox variant="error"><p>{error}</p></MessageBox>}
 
             <Button 
                 onClick={async () => { await convert(file) }}
