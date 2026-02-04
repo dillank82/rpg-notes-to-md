@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useConverter } from "../hooks/useConverter"
 import { FileSelector } from "./FileSelector"
+import { Button } from "./Button"
 
 export const Converter = () => {
     const [file, setFile] = useState<File | null>(null)
@@ -24,6 +25,13 @@ export const Converter = () => {
             )}
 
             {error && <div className="error-toast">{error}</div>}
+
+            <Button 
+                onClick={async () => { await convert(file) }}
+                isLoading={!file}
+            >
+                Convert
+            </Button>
         </main>
     )
 }      
