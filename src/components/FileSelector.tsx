@@ -44,7 +44,7 @@ export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
              isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
             }`}
         >
-            <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2" aria-live="polite">
+            <label htmlFor="file-upload" className="pointer-events-none cursor-pointer focus-within:ring-2 w-full h-full" aria-live="polite">
                 {isDragging 
                 ? "Drop file here" 
                 : "Choose export file from RPG Notes (.json)"}
@@ -57,7 +57,12 @@ export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
                     className="sr-only"
                 />
             </label>
-            <FilePlus size={100} strokeWidth={0.8} color={isDragging ? 'oklch(62.5% 0.214 259.815)' : 'oklch(75% 0.01 258.338)'}/>
+            <FilePlus 
+                size={100}
+                strokeWidth={0.8}
+                color={isDragging ? 'oklch(62.5% 0.214 259.815)' : 'oklch(75% 0.01 258.338)'}
+                className="pointer-events-none"
+            />
         </div>
     )
 }
