@@ -1,3 +1,4 @@
+import { FilePlus } from "lucide-react"
 import { ChangeEvent, DragEvent, useState } from "react"
 
 interface FileSelectorProps {
@@ -56,7 +57,7 @@ export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
                     className="sr-only"
                 />
             </label>
-            
+            <FilePlus size={100} strokeWidth={0.8} color={isDragging ? 'oklch(62.5% 0.214 259.815)' : 'oklch(75% 0.01 258.338)'}/>
         </div>
     )
 }
