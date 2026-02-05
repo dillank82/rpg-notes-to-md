@@ -10,8 +10,8 @@ export const Converter = () => {
     const { convert, status, error, downloadUrl } = useConverter()
     return (
         <main className="
-            w-full max-w-2xl h-full bg-white shadow-sm p-6 flex flex-col items-center
-            md:rounded-xl
+            w-full max-w-3xl h-full bg-white shadow-sm p-6 flex flex-col items-center
+            md:rounded-xl md:h-[50%] md:justify-center md:my-3
         ">
             {(status === 'idle' || status === 'error') && (
                 <FileSelector onFileSelect={setFile} />
