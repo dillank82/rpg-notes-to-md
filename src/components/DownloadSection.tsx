@@ -1,3 +1,5 @@
+import { Button } from "./Button"
+
 interface DownloadSectionProps {
     downloadUrl: string
 }
@@ -8,7 +10,7 @@ export const DownloadSection = ({ downloadUrl }: DownloadSectionProps) => {
             <a href={downloadUrl} download="obsidian_vault.zip">
                 Download .zip
             </a>
-            <Button onClick={() => window.location.reload()}>Start again</Button>
+            <Button as="button" onClick={() => window.location.reload()}>Start again</Button>
         </div>
     )
 }

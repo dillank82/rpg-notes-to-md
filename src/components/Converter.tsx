@@ -30,7 +30,8 @@ export const Converter = () => {
             {(status === 'idle' || status === 'error') && (
                 <Button
                     onClick={async () => { await convert(file) }}
-                    isLoading={!file}
+                    disabled={!file}
+                    as="button"
                 >
                     Convert
                 </Button>
