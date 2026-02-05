@@ -5,10 +5,12 @@ interface DownloadSectionProps {
 }
 export const DownloadSection = ({ downloadUrl }: DownloadSectionProps) => {
     return (
-        <div>
-            <p>Done! Your archive is ready for migration.</p>
-            <Button as="a" href={downloadUrl} download="obsidian_vault.zip">Download .zip</Button>
-            <Button as="button" onClick={() => window.location.reload()}>Start again</Button>
+        <div >
+            <p className="text-center">Done! Your archive is ready for migration.</p>
+            <div className="flex flex-col items-center">
+                <Button as="a" href={downloadUrl} download="obsidian_vault.zip">Download .zip</Button>
+                <Button as="button" onClick={() => window.location.reload()}>Start again</Button>
+            </div>
         </div>
     )
 }
