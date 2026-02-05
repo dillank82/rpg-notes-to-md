@@ -41,11 +41,11 @@ export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            className={`border-2 border-dashed transition-colors rounded-sm flex flex-col items-center min-w-[385px] min-h-[235px] ${
+            className={`border-2 border-dashed transition-colors rounded-sm min-w-[385px] min-h-[235px] ${
              isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
             }`}
         >
-            <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2 w-full h-full p-10" aria-live="polite">
+            <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2 w-full h-full p-10 flex flex-col items-center" aria-live="polite">
                 {isDragging 
                 ? "Drop file here" 
                 : "Choose export file from RPG Notes (.json)"}
