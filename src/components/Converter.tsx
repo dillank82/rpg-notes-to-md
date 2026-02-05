@@ -3,6 +3,7 @@ import { useConverter } from "../hooks/useConverter"
 import { FileSelector } from "./FileSelector"
 import { Button } from "./Button"
 import { MessageBox } from "./MessageBox"
+import { DownloadSection } from "./DownloadSection"
 
 export const Converter = () => {
     const [file, setFile] = useState<File | null>(null)
@@ -20,13 +21,7 @@ export const Converter = () => {
 
             {status === 'success' && downloadUrl && (
                 <MessageBox>
-                    <div>
-                        <p>Done! Your archive is ready for migration.</p>
-                        <a href={downloadUrl} download="obsidian_vault.zip">
-                            Download .zip
-                        </a>
-                        <Button onClick={() => window.location.reload()}>Start again</Button>
-                    </div>
+                    <DownloadSection downloadUrl={downloadUrl}/>
                 </MessageBox>
             )}
 
