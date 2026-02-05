@@ -12,6 +12,7 @@ export const Converter = () => {
         <main className="
             w-full max-w-3xl h-full bg-white shadow-sm p-6 flex flex-col items-center
             md:rounded-xl md:h-[50%] md:justify-center md:my-3
+            lg:h-[75%]
         ">
             {(status === 'idle' || status === 'error') && (
                 <FileSelector onFileSelect={setFile} />
