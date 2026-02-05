@@ -22,6 +22,7 @@ export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
     }
     const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault()
+        if (e.currentTarget.contains(e.relatedTarget as Node)) return
         setIsDragging(false)
     }
 
@@ -44,7 +45,7 @@ export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
              isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
             }`}
         >
-            <label htmlFor="file-upload" className="pointer-events-none cursor-pointer focus-within:ring-2 w-full h-full p-10" aria-live="polite">
+            <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2 w-full h-full p-10" aria-live="polite">
                 {isDragging 
                 ? "Drop file here" 
                 : "Choose export file from RPG Notes (.json)"}
