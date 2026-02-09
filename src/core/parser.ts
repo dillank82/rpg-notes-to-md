@@ -1,4 +1,5 @@
-import { CampaignsData, RPGNotesDataMaps, RPGNotesRequiredData } from "../interfaces/RPGNotesData"
+import { RPGNotesDataMaps } from "../interfaces/RPGNotesData"
+import { CampaignsData, RPGNotesRequiredDataSchema } from "../schemas/RPGNotesData.schema"
 
 const groupBy = <T>(array: T[], key: keyof T): Map<unknown, T[]> => {
     const map = new Map<unknown, T[]>()
@@ -10,12 +11,6 @@ const groupBy = <T>(array: T[], key: keyof T): Map<unknown, T[]> => {
     return map
 }
 
-const readJSONFile = async <T>(file: File): Promise<T> => {
-    return JSON.parse(await file.text())
-}
-const normalizeRPGNotesData = (raw: RPGNotesRequiredData): CampaignsData => {
-    return JSON.parse(raw.campaignsData)
-}
 export const getRPGNotesDataMaps = (data: CampaignsData): RPGNotesDataMaps => {
     const { categories, storyNotes, subjectNotes, subjectTagsAttachments, subjects } = data
     const categoriesByParentId = groupBy(categories, 'parentCategory_id')
@@ -27,8 +22,10 @@ export const getRPGNotesDataMaps = (data: CampaignsData): RPGNotesDataMaps => {
 }
 
 export const parseRPGNotes = async(file: File): Promise<{ maps: RPGNotesDataMaps, data: CampaignsData }> => {
-    const rawData = await readJSONFile<RPGNotesRequiredData>(file)
-    const data = normalizeRPGNotesData(rawData)
+    const text = await file.text()
+    const rawData = JSON.parse(text)
+    const validated = await RPGNotesRequiredDataSchema.parseAsync(rawData)
+    const data = validated.campaignsData
     const maps = getRPGNotesDataMaps(data)
     return { maps, data }
 }  

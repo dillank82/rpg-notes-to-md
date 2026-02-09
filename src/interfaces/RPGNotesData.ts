@@ -1,76 +1,9 @@
-export interface RPGNotesRequiredData {
-    campaignsData: string
-}
-
-export interface CampaignsData {
-    campaigns: Campaign[]
-    categories: Category[]
-    connections: Connection[]
-    storyNotes: StoryNote[]
-    subjectNotes: SubjectNote[]
-    subjectTags: SubjectTag[]
-    subjectTagsAttachments: SubjectTagAttachment[]
-    subjects: Subject[]
-}
+import { CampaignsData } from "../schemas/RPGNotesData.schema";
 
 export interface RPGNotesDataMaps {
-    categoriesByParentId: Map<unknown, Category[]>,
-    subjectsByCategory: Map<unknown, Subject[]>,
-    notesBySubject: Map<unknown, SubjectNote[]>,
-    tagsAttachmentsBySubject: Map<unknown, SubjectTagAttachment[]>,
-    storyNotesByCampaign: Map<unknown, StoryNote[]>,
-}
-
-interface Campaign {
-    description?: string
-    name: string
-    id: number
-}
-
-interface Category {
-    campaign_id: number
-    parentCategory_id: number
-    description?: string
-    id: number
-    name: string
-}
-
-interface Connection {
-    comment_1?: string
-    comment_2?: string
-    // id: number
-    subject1_id: number
-    subject2_id: number
-}
-
-interface StoryNote {
-    campaign_id: number
-    description: string
-    id: number
-}
-
-interface SubjectNote {
-    // id: number
-    name: string
-    subject_id: number
-}
-
-interface SubjectTag {
-    id: number
-    // campaign_id: number
-    isGlobal: boolean
-    name: string
-}
-
-interface SubjectTagAttachment {
-    subject_id: number
-    tag_id: number
-}
-
-interface Subject {
-    category_id: number
-    fullDescription: string
-    description?: string
-    id: number
-    name: string
+    categoriesByParentId: Map<unknown, CampaignsData['categories']>,
+    subjectsByCategory: Map<unknown, CampaignsData['subjects']>,
+    notesBySubject: Map<unknown, CampaignsData['subjectNotes']>,
+    tagsAttachmentsBySubject: Map<unknown, CampaignsData['subjectTagsAttachments']>,
+    storyNotesByCampaign: Map<unknown, CampaignsData['storyNotes']>,
 }

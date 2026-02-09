@@ -1,5 +1,6 @@
-import { CampaignsData, RPGNotesDataMaps } from '../../interfaces/RPGNotesData'
+import { RPGNotesDataMaps } from '../../interfaces/RPGNotesData'
 import { VirtualFileSystem } from '../../interfaces/VirtualFileSystem'
+import { CampaignsData } from '../../schemas/RPGNotesData.schema'
 import { normalizePath, sanitizeName } from '../utils'
 import { generateNoteContent } from './generateNoteContent'
 import { PathRegistry } from './pathRegistry'
