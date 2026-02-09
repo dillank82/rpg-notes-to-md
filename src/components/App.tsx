@@ -4,8 +4,8 @@ import { Header } from "./Header"
 export const App = () => {
   return (
     <div className="
-      h-screen bg-slate-50 flex flex-col items-center font-semibold
-      lg:justify-center lg:pb-[12.5%]
+      h-screen bg-white flex flex-col items-center justify-center font-semibold
+      md:bg-slate-50 md:pb-[10%]
       2xl:text-lg
     ">
       <Header />
