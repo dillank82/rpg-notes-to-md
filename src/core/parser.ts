@@ -1,3 +1,4 @@
+import z from "zod"
 import { RPGNotesDataMaps } from "../interfaces/RPGNotesData"
 import { CampaignsData, RPGNotesRequiredDataSchema } from "../schemas/RPGNotesData.schema"
 
@@ -22,10 +23,17 @@ export const getRPGNotesDataMaps = (data: CampaignsData): RPGNotesDataMaps => {
 }
 
 export const parseRPGNotes = async(file: File): Promise<{ maps: RPGNotesDataMaps, data: CampaignsData }> => {
-    const text = await file.text()
-    const rawData = JSON.parse(text)
-    const validated = await RPGNotesRequiredDataSchema.parseAsync(rawData)
-    const data = validated.campaignsData
-    const maps = getRPGNotesDataMaps(data)
-    return { maps, data }
+    try {
+        const text = await file.text()
+        const rawData = JSON.parse(text)
+        const validated = await RPGNotesRequiredDataSchema.parseAsync(rawData)
+        const data = validated.campaignsData
+        const maps = getRPGNotesDataMaps(data)
+        return { maps, data }
+    } catch (err) {
+        if (err instanceof z.ZodError && err.issues.some(i => i.path.includes('campaignsData') && i.code === 'invalid_type')) {
+            throw new Error ('Incorrect file format: Campaign data is missing. Make sure you have exported the file from RPG Notes.')
+        }
+        throw err
+    }
 }  
