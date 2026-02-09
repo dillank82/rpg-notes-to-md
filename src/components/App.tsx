@@ -1,4 +1,5 @@
 import { Converter } from "./Converter"
+import { Header } from "./Header"
 
 export const App = () => {
   return (
@@ -7,6 +8,7 @@ export const App = () => {
       lg:justify-center lg:pb-[12.5%]
       2xl:text-lg
     ">
+      <Header />
       <Converter />
     </div>
   )
