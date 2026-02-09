@@ -1,7 +1,7 @@
 export const Header = () => {
     return (
-        <header>
-            <img src="src/img/logo.png" alt="RPG Notes to Obsidian.md" />
+        <header className="my-3">
+            <img src="src/img/logo.png" alt="RPG Notes to Obsidian.md" className="w-50" />
         </header>
     )
 }
