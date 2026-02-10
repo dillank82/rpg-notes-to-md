@@ -41,4 +41,11 @@ describe('pathRegistry', () => {
         registry.resolve('note.md.md')
         expect(registry.resolve('note.md.md')).toBe('note.md-1.md')
     })
+    it('should throw Error after max number of attempts to resolve unique path in loop', () => {
+        const registry = new PathRegistry(10)
+        for (let i = 1; i <= 10; i++) {
+            registry.resolve('note.md')
+        }
+        expect(() => { registry.resolve('note.md') }).toThrowError()
+    })
 })
