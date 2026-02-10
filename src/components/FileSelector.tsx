@@ -8,6 +8,7 @@ interface FileSelectorProps {
 
 export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
     const [isDragging, setIsDragging] = useState(false)
+    const [isJSON, setIsJSON] = useState<boolean | null>(null)
     const [, setDragCounter] = useState(0)
 
     useEffect(() => {
@@ -15,6 +16,11 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
             e.preventDefault()
             setDragCounter(prev => prev + 1)
             setIsDragging(true)
+            if (e.dataTransfer.items[0].type === 'application/json' || e.dataTransfer.items[0].getAsFile().name.endsWith('.json')) {
+                setIsJSON(true)
+            } else {
+                setIsJSON(false)
+            }
         }
 
         const handleWindowDragLeave = (e: globalThis.DragEvent) => {
@@ -23,6 +29,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
                 const newCount = prev - 1
                 if (newCount <= 0) {
                     setIsDragging(false)
+                    setIsJSON(null)
                     return 0
                 }
                 return newCount
@@ -33,6 +40,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
             e.preventDefault()
             setDragCounter(0)
             setIsDragging(false)
+            setIsJSON(null)
         }
 
         window.addEventListener('dragenter', handleWindowDragEnter)
@@ -65,15 +73,21 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
         const file = e.target.files[0]
         if (file) processFile(file)
     }
+
+    const dragStyles = {
+        active: 'border-blue-500 bg-blue-50',
+        error: 'border-red-500 bg-red-50',
+        default: 'border-gray-300'
+    }
+    const activeStyles = isDragging ? (isJSON ? dragStyles.active : dragStyles.error) : dragStyles.default
     return (
         <div
             onDrop={handleDrop}
-            className={`border-2 border-dashed transition-colors rounded-sm w-[85%] min-h-[235px] ${isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
-                }`}
+            className={`border-2 border-dashed transition-colors rounded-sm w-[85%] min-h-[235px] ${activeStyles}`}
         >
             <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2 w-full h-full p-10 flex flex-col items-center" aria-live="polite">
                 {isDragging
-                    ? "Drop file here"
+                    ? (isJSON ? "Drop file here" : "You need to choose .json file")
                     : "Choose export file from RPG Notes (.json)"}
 
                 <input
@@ -86,7 +100,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
                 <FilePlus
                     size={100}
                     strokeWidth={0.8}
-                    color={isDragging ? 'oklch(62.5% 0.214 259.815)' : 'oklch(75% 0.01 258.338)'}
+                    color={isDragging ? (isJSON ? 'oklch(62.5% 0.214 259.815)' : 'oklch(63.7% 0.237 25.331)') : 'oklch(75% 0.01 258.338)'}
                 />
             </label>
         </div>
