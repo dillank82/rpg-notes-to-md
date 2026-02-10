@@ -1,4 +1,4 @@
-import { CampaignsData } from "../interfaces/RPGNotesData"
+import { CampaignsData } from "../schemas/RPGNotesData.schema"
 import { getRPGNotesDataMaps } from "./parser"
 
 describe ('getRPGNotesDataMaps', () => {
@@ -22,9 +22,9 @@ describe ('getRPGNotesDataMaps', () => {
     it('should groupping subjects by categories correctly ', () => {
         const mockData = createMockData({
             subjects: [
-                { id: 1, name: 'Oor', category_id: 1, fullDescription: '' },
-                { id: 2, name: 'Suan', category_id: 1, fullDescription: '' },
-                { id: 3, name: 'Nefrit', category_id: 100, fullDescription: '' },
+                { id: 1, name: 'Oor', category_id: 1, fullDescription: '', description:'' },
+                { id: 2, name: 'Suan', category_id: 1, fullDescription: '', description:'' },
+                { id: 3, name: 'Nefrit', category_id: 100, fullDescription: '', description:'' },
             ]
         })
         const maps = getRPGNotesDataMaps(mockData)
