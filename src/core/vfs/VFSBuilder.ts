@@ -55,7 +55,7 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): Vir
         buildCategories(-1, campaignPath)
     })
     const addConections = () => {
-        connections.forEach((c) => {
+        connections?.forEach((c) => {
             const path1 = subjectIdToPath.get(c.subject1_id)
             const path2 = subjectIdToPath.get(c.subject2_id)
             const name1 = subjectIdToName.get(c.subject1_id)
