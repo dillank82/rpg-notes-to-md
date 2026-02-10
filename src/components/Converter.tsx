@@ -7,7 +7,7 @@ import { DownloadSection } from "./DownloadSection"
 
 export const Converter = () => {
     const [file, setFile] = useState<File | null>(null)
-    const { convert, status, error, downloadUrl } = useConverter()
+    const { convert, status, error, setError, downloadUrl } = useConverter()
     return (
         <main className="
             w-full max-w-3xl h-full bg-white p-6 flex flex-col items-center
@@ -15,7 +15,7 @@ export const Converter = () => {
             lg:h-[75%]
         ">
             {(status === 'idle' || status === 'error') && (
-                <FileSelector onFileSelect={setFile} />
+                <FileSelector onFileSelect={setFile} onError={setError} />
             )}
 
             {status === 'processing' && <MessageBox><p>Converting...</p></MessageBox>}

@@ -22,5 +22,5 @@ export const useConverter = () => {
         }
     }
 
-    return { convert, status, error, downloadUrl }
+    return { convert, status, error, setError, downloadUrl }
 }

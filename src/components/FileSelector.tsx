@@ -3,15 +3,16 @@ import { ChangeEvent, DragEvent, useState } from "react"
 
 interface FileSelectorProps {
     onFileSelect: (file: File) => void
+    onError: (message: string) => void
 }
 
-export const FileSelector = ({ onFileSelect }: FileSelectorProps) => {
+export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
     const [isDragging, setIsDragging] = useState(false)
     
     const processFile = (file: File) => {
         if (file.type !== "application/json" && !file.name.endsWith('.json')) {
-        alert("App works only with .json files")
-        return
+            onError("App works only with .json files")
+            return
         }
         onFileSelect(file)
     }
