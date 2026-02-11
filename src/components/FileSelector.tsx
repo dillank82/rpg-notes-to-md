@@ -16,7 +16,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
             e.preventDefault()
             setDragCounter(prev => prev + 1)
             setIsDragging(true)
-            if (e.dataTransfer.items[0].type === 'application/json' || e.dataTransfer.items[0].getAsFile()?.name.endsWith('.json')) {
+            if (e.dataTransfer.items[0].type === 'application/json') {
                 setIsJSON(true)
             } else {
                 setIsJSON(false)
