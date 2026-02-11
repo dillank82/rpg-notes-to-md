@@ -1,5 +1,6 @@
-import { FilePlus } from "lucide-react"
+import { FileCheck, FilePlus } from "lucide-react"
 import { ChangeEvent, DragEvent, useEffect, useState } from "react"
+import { Button } from "./Button"
 
 interface FileSelectorProps {
     onFileSelect: (file: File) => void
@@ -10,6 +11,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
     const [isDragging, setIsDragging] = useState(false)
     const [isJSON, setIsJSON] = useState<boolean | null>(null)
     const [, setDragCounter] = useState(0)
+    const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
     useEffect(() => {
         const handleWindowDragEnter = (e: globalThis.DragEvent) => {
@@ -61,6 +63,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
             onError("App works only with .json files")
             return
         }
+        setSelectedFile(file)
         onFileSelect(file)
     }
 
@@ -86,10 +89,6 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
             className={`border-2 border-dashed transition-colors rounded-sm w-[85%] min-h-[235px] ${activeStyles}`}
         >
             <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2 w-full h-full p-10 flex flex-col items-center" aria-live="polite">
-                {isDragging
-                    ? (isJSON ? "Drop file here" : "You need to choose .json file")
-                    : "Choose export file from RPG Notes (.json)"}
-
                 <input
                     type="file"
                     id="file-upload"
@@ -97,11 +96,28 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
                     onChange={(e) => { handleFileChange(e) }}
                     className="sr-only"
                 />
-                <FilePlus
-                    size={100}
-                    strokeWidth={0.8}
-                    color={isDragging ? (isJSON ? 'oklch(60.6% 0.25 292.717)' : 'oklch(63.7% 0.237 25.331)') : 'oklch(75% 0.01 258.338)'}
-                />
+                {isDragging
+                    ? (isJSON ? "Drop file here" : "You need to choose .json file")
+                    : (selectedFile ? "File uploaded and ready to convertation" : "Choose export file from RPG Notes (.json)")}
+                {selectedFile
+                    ? (
+                        <>
+                            <FileCheck
+                                size={100}
+                                strokeWidth={0.8}
+                                color={isDragging ? (isJSON ? 'oklch(60.6% 0.25 292.717)' : 'oklch(63.7% 0.237 25.331)') : 'oklch(60.6% 0.25 292.717)'}
+                            />
+                            <p className="mt-4">{selectedFile.name}</p>
+                            <Button as="button" onClick={() => setSelectedFile(null)}>Remove file and choose another</Button>
+                        </>
+                    ) : (
+                        <FilePlus
+                            size={100}
+                            strokeWidth={0.8}
+                            color={isDragging ? (isJSON ? 'oklch(60.6% 0.25 292.717)' : 'oklch(63.7% 0.237 25.331)') : 'oklch(75% 0.01 258.338)'}
+                        />
+                    )
+                }
             </label>
         </div>
     )
