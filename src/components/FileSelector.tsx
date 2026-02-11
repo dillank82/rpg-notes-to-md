@@ -108,7 +108,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
                                 color={isDragging ? (isJSON ? 'oklch(60.6% 0.25 292.717)' : 'oklch(63.7% 0.237 25.331)') : 'oklch(60.6% 0.25 292.717)'}
                             />
                             <p className="mt-4">{selectedFile.name}</p>
-                            <Button as="button" onClick={() => setSelectedFile(null)}>Remove file and choose another</Button>
+                            <Button as="button" color="white" onClick={() => setSelectedFile(null)}>Remove file and choose another</Button>
                         </>
                     ) : (
                         <FilePlus
