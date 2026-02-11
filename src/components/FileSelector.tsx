@@ -75,7 +75,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
     }
 
     const dragStyles = {
-        active: 'border-blue-500 bg-blue-50',
+        active: 'border-violet-500 bg-violet-50',
         error: 'border-red-500 bg-red-50',
         default: 'border-gray-300'
     }
@@ -100,7 +100,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
                 <FilePlus
                     size={100}
                     strokeWidth={0.8}
-                    color={isDragging ? (isJSON ? 'oklch(62.5% 0.214 259.815)' : 'oklch(63.7% 0.237 25.331)') : 'oklch(75% 0.01 258.338)'}
+                    color={isDragging ? (isJSON ? 'oklch(60.6% 0.25 292.717)' : 'oklch(63.7% 0.237 25.331)') : 'oklch(75% 0.01 258.338)'}
                 />
             </label>
         </div>
