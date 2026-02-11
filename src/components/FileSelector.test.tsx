@@ -6,13 +6,13 @@ describe('FileSelector', () => {
     beforeEach(() => {
         vitest.clearAllMocks()
     })
-    it('should call onFileSelect with the correct file object when a valid .json file is uploaded', async() => {
+    it('should call onFileSelect with the correct file object when a valid .json file is uploaded', async () => {
         const user = userEvent.setup()
         const onFileSelect = vitest.fn()
         const onError = vitest.fn()
         const file = new File(['{"key": "value"}'], 'data.json', { type: 'application/json' })
 
-        render(<FileSelector onFileSelect={onFileSelect} onError={onError}/>)
+        render(<FileSelector onFileSelect={onFileSelect} onError={onError} />)
 
         const inputLabel = screen.getByText(/choose export file/i)
         expect(inputLabel).toBeInTheDocument()
@@ -22,25 +22,46 @@ describe('FileSelector', () => {
         expect(onFileSelect).toBeCalledWith(file)
     })
     it('should correctly track onDrag events', () => {
+        const getEventObject = (type: string) => {
+            const file = new File(['test'], `export.${type}`)
+            return {
+                dataTransfer: {
+                    files: [file],
+                    items: [{
+                        kind: 'file',
+                        type: file.type,
+                        getAsFile: () => file
+                    }],
+                    types: ['Files']
+                }
+            }
+        }
+        const validObject = getEventObject('json')
+        const invalidObject = getEventObject('pubg')
+
         const onFileSelect = vitest.fn()
         const onError = vitest.fn()
-        render(<FileSelector onFileSelect={onFileSelect} onError={onError}/>)
+        render(<FileSelector onFileSelect={onFileSelect} onError={onError} />)
 
         const inputLabel = screen.getByText(/choose export file/i)
         expect(inputLabel).toBeInTheDocument()
 
-        fireEvent.dragOver(inputLabel)
+        fireEvent.dragEnter(window, validObject)
         expect(inputLabel).toHaveTextContent(/drop/i)
 
-        fireEvent.dragLeave(inputLabel)
+        fireEvent.dragEnter(window, invalidObject)
+        expect(inputLabel).toHaveTextContent(/choose .json/i)
+
+        fireEvent.dragLeave(window)
         expect(inputLabel).not.toHaveTextContent(/drop/i)
+
     })
-    it('should call onError when file is not .json', async() => {
+    it('should call onError when file is not .json', async () => {
         const onFileSelect = vitest.fn()
         const onError = vitest.fn()
         const file = new File(['{"key": "value"}'], 'data.png', { type: 'image/png' })
 
-        render(<FileSelector onFileSelect={onFileSelect} onError={onError}/>)
+        render(<FileSelector onFileSelect={onFileSelect} onError={onError} />)
 
         const input = screen.getByLabelText(/choose export file/i)
         expect(input).toBeInTheDocument()
