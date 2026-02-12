@@ -17,13 +17,13 @@ describe('FileSelector', () => {
         const inputLabel = screen.getByText(/choose export file/i)
         expect(inputLabel).toBeInTheDocument()
         await user.upload(inputLabel, file)
-
+        expect(inputLabel).toHaveTextContent(/ready to convert/i)
         expect(onFileSelect).toBeCalledTimes(1)
         expect(onFileSelect).toBeCalledWith(file)
     })
     it('should correctly track onDrag events', () => {
         const getEventObject = (type: string) => {
-            const file = new File(['test'], `export.${type}`)
+            const file = new File(['test'], `export.${type}`, { type: `application/${type}` })
             return {
                 dataTransfer: {
                     files: [file],
