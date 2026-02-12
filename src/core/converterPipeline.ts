@@ -9,7 +9,5 @@ export const converterPipeline = async(file: File): Promise<{ blob: Blob, bigPat
     const blob = await generateZipFromVFS(vfs)
     
     const bigPathsMessage = generateBigPathsMessage(bigPathsWarnings)
-    console.log(vfs)
-
     return { blob, bigPathsMessage }
 }
