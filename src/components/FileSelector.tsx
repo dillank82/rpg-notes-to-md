@@ -86,9 +86,9 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
     return (
         <div
             onDrop={handleDrop}
-            className={`border-2 border-dashed transition-colors rounded-sm w-[85%] min-h-[235px] ${activeStyles}`}
+            className={`border-2 border-dashed transition-colors rounded-sm w-[85%] ${activeStyles}`}
         >
-            <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2 w-full h-full p-10 flex flex-col items-center" aria-live="polite">
+            <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2 w-full p-10 flex flex-col items-center text-center" aria-live="polite">
                 <input
                     type="file"
                     id="file-upload"

@@ -4,7 +4,7 @@ import { Header } from "./Header"
 export const App = () => {
   return (
     <div className="
-      h-screen bg-white flex flex-col items-center justify-center font-semibold
+      min-h-screen bg-white flex flex-col items-center justify-center font-semibold overflow-y-scroll
       md:bg-slate-50 md:pb-[10%]
       2xl:text-lg
     ">

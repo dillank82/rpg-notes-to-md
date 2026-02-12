@@ -10,8 +10,8 @@ export const Converter = () => {
     const { convert, status, warnings, error, setError, downloadUrl } = useConverter()
     return (
         <main className="
-            w-full max-w-3xl h-full bg-white p-6 flex flex-col items-center
-            md:rounded-xl md:shadow-sm md:h-[50%] md:min-h-85 md:justify-center md:my-3 md:max-h-115
+            w-full max-w-3xl bg-white p-6 flex flex-col items-center
+            md:rounded-xl md:shadow-sm md:justify-center md:my-3
             lg:h-[75%]
         ">
             {(status === 'idle' || status === 'error') && (
