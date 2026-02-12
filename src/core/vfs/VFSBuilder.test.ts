@@ -81,8 +81,7 @@ describe('VFSBuilder', () => {
         expect(subject).toMatchInlineSnapshot(`
           "# Description
           > subject_note_1
-          > subject note 2 (without snake_case)
-          # Connections"
+          > subject note 2 (without snake_case)"
         `)
     })
     it('should correctly add tags to file and add name of campaign to non-global tags', () => {

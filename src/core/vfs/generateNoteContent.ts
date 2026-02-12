@@ -9,8 +9,7 @@ export const generateNoteContent = (tags: string, description: string, body: str
         description,
         '# Description',
         body,
-        notes,
-        '# Connections'
+        notes
     ]
     return parts.filter(Boolean).join('\n')
 }

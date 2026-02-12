@@ -62,9 +62,11 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): { v
             const name2 = subjectIdToName.get(c.subject2_id)
 
             if (path1 && name2) {
+                if (!vfs[path1].includes('\n# Connections')) vfs[path1] += '\n# Connections'
                 vfs[path1] += `\n[[${name2}]] ${c.comment_1 ? ('- ' + c.comment_1) : ''}`
             }
             if (path2 && name1) {
+                if (!vfs[path2].includes('\n# Connections')) vfs[path2] += '\n# Connections'
                 vfs[path2] += `\n[[${name1}]] ${c.comment_2 ? ('- ' + c.comment_2) : ''}`
             }
         })

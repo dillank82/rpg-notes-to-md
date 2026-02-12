@@ -18,8 +18,7 @@ describe('generateNoteContent', () => {
           Y
           > First Note
           > Second Note
-          > Death Note
-          # Connections"
+          > Death Note"
         `)
     })
     it('should not add frontmatter if no tags', () => {
@@ -31,8 +30,7 @@ describe('generateNoteContent', () => {
           "Faith
           # Description
           Hope
-          > Love
-          # Connections"
+          > Love"
         `)
     })
 })

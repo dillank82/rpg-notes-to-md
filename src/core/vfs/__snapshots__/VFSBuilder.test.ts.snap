@@ -4,12 +4,10 @@ exports[`VFSBuilder > should correctly create file structure 1`] = `
 {
   "Cool Campaign/Root Category/Mr. Mistery.md": "???
 # Description
-Why he is inside Root Category
-# Connections",
+Why he is inside Root Category",
   "Cool Campaign/Root Category/Sub Category/Chuck.md": "His might is infinity
 # Description
-The real hero of the Sub Category
-# Connections",
+The real hero of the Sub Category",
   "Cool Campaign/StoryNotes/Note 100.md": "Single Story Note, but named as 100",
 }
 `;
