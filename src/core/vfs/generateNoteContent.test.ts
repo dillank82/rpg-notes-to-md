@@ -22,4 +22,17 @@ describe('generateNoteContent', () => {
           # Connections"
         `)
     })
+    it('should not add frontmatter if no tags', () => {
+        const tags = ''
+        const description = 'Faith'
+        const body = 'Hope'
+        const notes = ['> Love'].join('\n')
+        expect(generateNoteContent(tags, description, body, notes)).toMatchInlineSnapshot(`
+          "Faith
+          # Description
+          Hope
+          > Love
+          # Connections"
+        `)
+    })
 })

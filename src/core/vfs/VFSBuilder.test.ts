@@ -79,12 +79,7 @@ describe('VFSBuilder', () => {
         const { vfs } = buildStructure(data, maps)
         const subject = vfs['campaign/category/subject.md']
         expect(subject).toMatchInlineSnapshot(`
-          "---
-          tags: []
-          ---
-
-          # Description
-
+          "# Description
           > subject_note_1
           > subject note 2 (without snake_case)
           # Connections"
@@ -123,24 +118,12 @@ describe('VFSBuilder', () => {
         const subject1 = vfs['campaign/category/subject1.md']
         const subject2 = vfs['campaign/category/subject2.md']
         expect(subject1).toMatchInlineSnapshot(`
-          "---
-          tags: []
-          ---
-
-          # Description
-
-
+          "# Description
           # Connections
           [[subject2]] - link description"
         `)
         expect(subject2).toMatchInlineSnapshot(`
-          "---
-          tags: []
-          ---
-
-          # Description
-
-
+          "# Description
           # Connections
           [[subject1]] "
         `)

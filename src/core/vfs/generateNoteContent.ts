@@ -1,13 +1,16 @@
 export const generateNoteContent = (tags: string, description: string, body: string, notes: string) => {
-    const parts = [
+    const tagsSection = tags ? [
         '---',
         `tags: [${tags}]`,
         '---',
+    ].join('\n') : ''
+    const parts = [
+        tagsSection,
         description,
         '# Description',
         body,
         notes,
         '# Connections'
     ]
-    return parts.join('\n')
+    return parts.filter(Boolean).join('\n')
 }
