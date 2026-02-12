@@ -22,3 +22,10 @@ export const sanitizeName = (name: string, type: string = 'RPGNotes'): string =>
     if (RESERVED_NAMES.has(sanitizedName.toUpperCase())) sanitizedName += `_${type}`
     return sanitizedName.replace(/[\\/:*?"<>|#^[\]%]/g, '-') || 'Untitled'
 }
+
+export const generateBigPathsMessage = (bigPathsWarnings: string[]) => {
+    if (bigPathsWarnings.length === 0) return ''
+    const initialText = 'Your file contains the following paths that are longer than 200 characters (this may be a problem on Windows):'
+    const message = bigPathsWarnings.reduce((acc, currentPath) => acc + `\n${currentPath}`, initialText)
+    return message
+}

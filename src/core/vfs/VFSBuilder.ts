@@ -6,7 +6,7 @@ import { generateNoteContent } from './generateNoteContent'
 import { PathRegistry } from './pathRegistry'
 
 
-export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): VirtualFileSystem => {
+export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): { vfs: VirtualFileSystem, bigPathsWarnings: string[] } => {
     const joinPaths = (...parts: string[]) => normalizePath(parts.join('/'))
 
     const vfs: VirtualFileSystem = {}
@@ -70,5 +70,5 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): Vir
         })
     }
     addConections()
-    return vfs
+    return { vfs, bigPathsWarnings: registry.bigPaths } 
 }

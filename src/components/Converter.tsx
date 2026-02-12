@@ -7,7 +7,7 @@ import { DownloadSection } from "./DownloadSection"
 
 export const Converter = () => {
     const [file, setFile] = useState<File | null>(null)
-    const { convert, status, error, setError, downloadUrl } = useConverter()
+    const { convert, status, warnings, error, setError, downloadUrl } = useConverter()
     return (
         <main className="
             w-full max-w-3xl h-full bg-white p-6 flex flex-col items-center
@@ -23,6 +23,7 @@ export const Converter = () => {
             {status === 'success' && downloadUrl && (
                 <MessageBox>
                     <DownloadSection downloadUrl={downloadUrl}/>
+                    {warnings && <MessageBox variant="warning"><p>{warnings}</p></MessageBox>}
                 </MessageBox>
             )}
 

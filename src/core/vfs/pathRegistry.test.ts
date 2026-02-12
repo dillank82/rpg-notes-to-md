@@ -48,4 +48,13 @@ describe('pathRegistry', () => {
         }
         expect(() => { registry.resolve('note.md') }).toThrowError()
     })
+    it('should add path to bigPaths array if its length > 200', () => {
+        const registry = new PathRegistry()
+        expect(registry.bigPaths.length).toBe(0)
+        const string201Chars = 'kkwwzssxtkeneuwomkfbhptnzlcmrccweipytladvispyvpdmfgrrzbhvnbdiucjcxauouaanxerghvxjwewulrzpiqxpzzykyalrlqlkecsxjrikcmeenngyudxwjpqawcjbzuwzrbrxxvekrjqjvnelkixavsigijtfrabtrajljecvmlqxfkgutscbilcemrisbqkz'
+        const resolved = registry.resolve(string201Chars)
+        expect(resolved).toBe(string201Chars)
+        expect(registry.bigPaths.length).toBe(1)
+        expect(registry.bigPaths[0]).toBe(string201Chars)
+    })
 })

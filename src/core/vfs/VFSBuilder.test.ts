@@ -1,4 +1,5 @@
-import { CampaignsData, RPGNotesDataMaps } from "../../interfaces/RPGNotesData"
+import { RPGNotesDataMaps } from "../../interfaces/RPGNotesData"
+import { CampaignsData } from "../../schemas/RPGNotesData.schema"
 import { buildStructure } from "./VFSBuilder"
 
 describe('VFSBuilder', () => {
@@ -37,13 +38,13 @@ describe('VFSBuilder', () => {
             ]),
             storyNotesByCampaign: new Map([[47, [{ campaign_id: 47, description: 'Single Story Note, but named as 100', id: 100 }]]])
         })
-        const vfs = buildStructure(data, maps)
+        const { vfs } = buildStructure(data, maps)
         expect(vfs).toMatchSnapshot()
     })
     it('should return empty object when gets empty data', () => {
         const data = createMockData()
         const maps = createMockMaps()
-        const vfs = buildStructure(data, maps)
+        const { vfs } = buildStructure(data, maps)
         expect(vfs).toEqual({})
     })
     it('should correctly integrate with PathRegistry', () => {
@@ -59,7 +60,7 @@ describe('VFSBuilder', () => {
                 ]],
             ])
         })
-        const vfs = buildStructure(data, maps)
+        const { vfs } = buildStructure(data, maps)
         expect('campaign/category/subject.md' in vfs).toBe(true)
         expect('campaign/category/subject-1.md' in vfs).toBe(true)
     })
@@ -75,7 +76,7 @@ describe('VFSBuilder', () => {
                 { subject_id: 1, name: 'subject note 2 (without snake_case)' }
             ]]])
         })
-        const vfs = buildStructure(data, maps)
+        const { vfs } = buildStructure(data, maps)
         const subject = vfs['campaign/category/subject.md']
         expect(subject).toMatchInlineSnapshot(`
           "---
@@ -102,7 +103,7 @@ describe('VFSBuilder', () => {
             subjectsByCategory: new Map([[1, [{ category_id: 1, fullDescription: '', id: 1, name: 'subject' }]]]),
             tagsAttachmentsBySubject: new Map([[1, [{ subject_id: 1, tag_id: 1 }, { subject_id: 1, tag_id: 2 }]]])
         })
-        const vfs = buildStructure(data, maps)
+        const { vfs } = buildStructure(data, maps)
         const subject = vfs['campaign/category/subject.md']
         expect(subject.startsWith('---\ntags: [Global tag, Local tag (campaign)]\n---')).toBe(true)
     })
@@ -118,7 +119,7 @@ describe('VFSBuilder', () => {
                 { category_id: 1, fullDescription: '', id: 2, name: 'subject2' }
             ]]]),
         })
-        const vfs = buildStructure(data, maps)
+        const { vfs } = buildStructure(data, maps)
         const subject1 = vfs['campaign/category/subject1.md']
         const subject2 = vfs['campaign/category/subject2.md']
         expect(subject1).toMatchInlineSnapshot(`

@@ -1,12 +1,15 @@
 import { parseRPGNotes } from "./parser"
+import { generateBigPathsMessage } from "./utils"
 import { buildStructure } from "./vfs/VFSBuilder"
 import { generateZipFromVFS } from "./writer"
 
-export const converterPipeline = async(file: File): Promise<Blob> => {
+export const converterPipeline = async(file: File): Promise<{ blob: Blob, bigPathsMessage: string }> => {
     const { data, maps } = await parseRPGNotes(file)
-    const vfs = buildStructure(data, maps)
+    const { vfs, bigPathsWarnings } = buildStructure(data, maps)
     const blob = await generateZipFromVFS(vfs)
+    
+    const bigPathsMessage = generateBigPathsMessage(bigPathsWarnings)
     console.log(vfs)
 
-    return blob
+    return { blob, bigPathsMessage }
 }

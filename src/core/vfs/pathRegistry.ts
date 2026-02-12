@@ -1,5 +1,6 @@
 export class PathRegistry {
     maxAttemps: number
+    bigPaths: string[] = []
     private occupiedPaths = new Set<string>()
     constructor(maxAttepmsToResolvePath: number = 1000) {
         this.maxAttemps = maxAttepmsToResolvePath
@@ -14,6 +15,7 @@ export class PathRegistry {
             if (counter > this.maxAttemps) throw new Error (`Failed to resolve unique file path for "${basePath}" after 1000 attempts.`)
         }
         this.occupiedPaths.add(finalPath.toLowerCase())
+        if (finalPath.length > 200) this.bigPaths.push(finalPath)
         return finalPath
     }
 }
