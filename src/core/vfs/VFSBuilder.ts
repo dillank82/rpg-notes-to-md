@@ -40,7 +40,7 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): { v
                     const notes = (notesBySubject.get(sub.id) || []).map(note => `> ${note.name}`).join('\n')
                     const tags = (tagsAttachmentsBySubject.get(sub.id) || []).map(att => {
                         const tag = subjectTags.find(tag => tag.id === att.tag_id)
-                        return `${tag?.isGlobal ? tag.name : `${tag?.name} (${campaign.name})`}`
+                        return `${tag?.isGlobal ? tag.name : `${tag?.name}_${campaign.name}`}`
                     }).join(', ')
 
                     const content = generateNoteContent(tags, sub.description, sub.fullDescription, notes)
