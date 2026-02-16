@@ -1,8 +1,7 @@
 # RPG Notes to .md Migrator
 A web tool for automated migration of knowledge bases and notes from the RPG Notes mobile app to Markdown format, with full preservation of tags and internal links.
 
-![Live Demo](https://your-link.vercel.app)
-![Demo Screenshot](https://via.placeholder.com/800x400?text=Place+your+app+screenshot+here)
+![Live Demo](http://rpg-notes-to-md.vercel.app)
 
 ## Why it was created
 TTRPG Game Masters are increasingly moving toward professional note-taking tools like Obsidian, which has become the industry standard for building complex knowledge bases.
