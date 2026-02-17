@@ -1,7 +1,7 @@
 import { CampaignsData } from "../../schemas/RPGNotesData.schema"
 
 export const normalizeTagName = (tag: CampaignsData['subjectTags'][number], campaignName: string) => {
-    let tagName = String(tag.name)
+    let tagName = String(tag.name.trim())
     const cleanName = (name: string) => {
         let n = name
         while (n.startsWith('#') || n.startsWith('/') || n.startsWith(' ')) n = n.slice(1);
