@@ -2,7 +2,7 @@ import { RPGNotesDataMaps } from '../../interfaces/RPGNotesData'
 import { VirtualFileSystem } from '../../interfaces/VirtualFileSystem'
 import { CampaignsData } from '../../schemas/RPGNotesData.schema'
 import { normalizePath, sanitizeName } from '../utils'
-import { generateNoteContent } from './generateNoteContent'
+import { generateNoteContent, normalizeTagName } from './generateNoteContent'
 import { PathRegistry } from './pathRegistry'
 
 
@@ -40,8 +40,8 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): { v
                     const notes = (notesBySubject.get(sub.id) || []).map(note => `> ${note.name}`).join('\n')
                     const tags = (tagsAttachmentsBySubject.get(sub.id) || []).map(att => {
                         const tag = subjectTags.find(tag => tag.id === att.tag_id)
-                        return `${tag?.isGlobal ? tag.name : `${tag?.name}_${campaign.name}`}`
-                    }).join(', ')
+                        return normalizeTagName(tag, campaign.name)
+                    }).filter(t => t.length > 0).join(', ')
 
                     const content = generateNoteContent(tags, sub.description, sub.fullDescription, notes)
                     const subjectPath = joinPaths(catPath, `${sanitizeName(sub.name, 'note')}.md`)
