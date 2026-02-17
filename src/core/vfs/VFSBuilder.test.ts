@@ -99,7 +99,7 @@ describe('VFSBuilder', () => {
         })
         const { vfs } = buildStructure(data, maps)
         const subject = vfs['campaign/category/subject.md']
-        expect(subject.startsWith('---\ntags: [Global tag, Local tag (campaign)]\n---')).toBe(true)
+        expect(subject.startsWith('---\ntags: [Global_tag, Local_tag/campaign]\n---')).toBe(true)
     })
     it('should correctly add connections to files', () => {
         const data = createMockData({
