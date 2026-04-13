@@ -27,6 +27,9 @@ This tool solves the migration problem from the RPG Notes mobile app. It automat
 
 ## Technical Challenges & Solutions
 
+### Reverse Engineering Schema Modeling:
+Reverse-engineered undocumented export format. Zod schemas were applied strictly to required fields, ensuring type-safe data handling and minimizing architectural overhead.
+
 ### Structure Construction Algorithm Optimization
 The initial approach to building the directory tree had a complexity of O(n^2). By implementing auxiliary Map objects for link indexing, I optimized the algorithm to ensure high performance even with very large databases.
 
