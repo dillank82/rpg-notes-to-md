@@ -1,6 +1,7 @@
 import { FileCheck, FilePlus } from "lucide-react"
 import { ChangeEvent, DragEvent, useEffect, useState } from "react"
 import { Button } from "./Button"
+import { useTranslation } from "react-i18next"
 
 interface FileSelectorProps {
     onFileSelect: (file: File) => void
@@ -8,6 +9,7 @@ interface FileSelectorProps {
 }
 
 export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
+    const { t } = useTranslation()
     const [isDragging, setIsDragging] = useState(false)
     const [isJSON, setIsJSON] = useState<boolean | null>(null)
     const [, setDragCounter] = useState(0)
@@ -60,7 +62,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
 
     const processFile = (file: File) => {
         if (file.type !== "application/json" && !file.name.endsWith('.json')) {
-            onError("App works only with .json files")
+            onError(t('errors.jsonOnly'))
             return
         }
         setSelectedFile(file)
@@ -97,8 +99,8 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
                     className="sr-only"
                 />
                 {isDragging
-                    ? (isJSON ? "Drop file here" : "You need to choose .json file")
-                    : (selectedFile ? "File uploaded and ready to convertation" : "Choose export file from RPG Notes (.json)")}
+                    ? (isJSON ? t('fileSelection.dropHere') : t('fileSelection.selectJSON'))
+                    : (selectedFile ? t('fileSelection.fileUploaded') : t('fileSelection.selectExportFile'))}
                 {selectedFile
                     ? (
                         <>
@@ -108,7 +110,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
                                 color={isDragging ? (isJSON ? 'oklch(60.6% 0.25 292.717)' : 'oklch(63.7% 0.237 25.331)') : 'oklch(60.6% 0.25 292.717)'}
                             />
                             <p className="mt-4">{selectedFile.name}</p>
-                            <Button as="button" color="white" onClick={() => setSelectedFile(null)}>Remove file and choose another</Button>
+                            <Button as="button" color="white" onClick={() => setSelectedFile(null)}>{t('removeFile')}</Button>
                         </>
                     ) : (
                         <FilePlus
