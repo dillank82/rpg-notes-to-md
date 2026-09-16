@@ -1,0 +1,18 @@
+{
+    "fileSelection": {
+        "dropHere": "Перетащите файл сюда",
+        "selectJSON": "Нужно выбрать .json файл",
+        "fileUploaded": "Файл загружен и готов к конвертации",
+        "selectExportFile": "Выберите файл экспорта из RPG Notes (.json)",
+        "removeFile": "Убрать файл и выбрать другой"
+    },
+    "convert": {
+        "convert": "Конвертировать",
+        "converting": "Конвертация…"
+    },
+    "download": {
+        "done": "Архив готов к миграции.",
+        "download": "Скачать .zip",
+        "startAgain": "Начать заново"
+    }
+}

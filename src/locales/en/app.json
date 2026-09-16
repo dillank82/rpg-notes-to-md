@@ -1,0 +1,18 @@
+{
+    "fileSelection": {
+        "dropHere": "Drop file here",
+        "selectJSON": "You need to choose .json file",
+        "fileUploaded": "File uploaded and ready to convertation",
+        "selectExportFile": "Choose export file from RPG Notes (.json)",
+        "removeFile": "Remove file and choose another"
+    },
+    "convert": {
+        "convert": "Convert",
+        "converting": "Converting…"
+    },
+    "download": {
+        "done": "Done! Your archive is ready for migration.",
+        "download": "Download .zip",
+        "startAgain": "Start again"
+    }
+}

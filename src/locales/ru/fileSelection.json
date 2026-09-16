@@ -1,7 +1,0 @@
-{
-    "dropHere": "Перетащите файл сюда",
-    "selectJSON": "Нужно выбрать .json файл",
-    "fileUploaded": "Файл загружен и готов к конвертации",
-    "selectExportFile": "Выберите файл экспорта из RPG Notes (.json)",
-    "removeFile": "Убрать файл и выбрать другой"
-}
