@@ -14,5 +14,8 @@
         "done": "Done! Your archive is ready for migration.",
         "download": "Download .zip",
         "startAgain": "Start again"
+    },
+    "warnings": {
+        "bigPath": "Your file contains the following paths that are longer than 200 characters (this may be a problem on Windows):"
     }
 }

@@ -1,3 +1,4 @@
+import i18n from "../locales/i18n"
 import { RESERVED_NAMES } from "../data/reservedNames"
 
 export const normalizePath = (path: string, isFile: boolean = true): string => {
@@ -25,7 +26,7 @@ export const sanitizeName = (name: string, type: string = 'RPGNotes'): string =>
 
 export const generateBigPathsMessage = (bigPathsWarnings: string[]) => {
     if (bigPathsWarnings.length === 0) return ''
-    const initialText = 'Your file contains the following paths that are longer than 200 characters (this may be a problem on Windows):'
+    const initialText = i18n.t('warnings.bigPath')
     const message = bigPathsWarnings.reduce((acc, currentPath) => acc + `\n${currentPath}`, initialText)
     return message
 }
