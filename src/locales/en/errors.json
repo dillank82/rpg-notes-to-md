@@ -1,3 +1,4 @@
 {
-    "jsonOnly": "App works only with .json files"
+    "jsonOnly": "App works only with .json files",
+    "unknownError": "Unknown error"
 }
