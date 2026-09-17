@@ -6,6 +6,7 @@ import errorsEn from './en/errors.json'
 import vfsEn from './en/vfs.json'
 import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
 const resources = {
     ru: {
@@ -21,12 +22,19 @@ const resources = {
 }
 
 i18next
+    .use(LanguageDetector)
     .use(initReactI18next)
     .init({
         resources,
         fallbackLng: 'en',
         defaultNS: 'app',
         ns: ['app, errors, vfs'],
+
+        detection: {
+            order: ['localStorage', 'navigator'],
+            caches: ['localStorage']
+        },
+
         interpolation: {
             escapeValue: false
         }
