@@ -62,7 +62,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
 
     const processFile = (file: File) => {
         if (file.type !== "application/json" && !file.name.endsWith('.json')) {
-            onError(t('errors.jsonOnly'))
+            onError(t('errors:jsonOnly'))
             return
         }
         setSelectedFile(file)

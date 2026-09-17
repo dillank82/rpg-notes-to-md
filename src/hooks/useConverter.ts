@@ -22,7 +22,7 @@ export const useConverter = () => {
             setStatus('success')
             setWarnings(bigPathsMessage)
         } catch(err) {
-            setError(err instanceof Error ? err.message : t('errors.unknownError'))
+            setError(err instanceof Error ? err.message : t('errors:unknownError'))
             setStatus('error')
         }
     }
