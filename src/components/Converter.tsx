@@ -20,7 +20,7 @@ export const Converter = () => {
                 <FileSelector onFileSelect={setFile} onError={setError} />
             )}
 
-            {status === 'processing' && <MessageBox><p>{t('converting')}</p></MessageBox>}
+            {status === 'processing' && <MessageBox><p>{t('convert.converting')}</p></MessageBox>}
 
             {status === 'success' && downloadUrl && (
                 <MessageBox>
@@ -37,7 +37,7 @@ export const Converter = () => {
                     disabled={!file}
                     as="button"
                 >
-                    {t('convert')}
+                    {t('convert.convert')}
                 </Button>
             )}
         </main>
