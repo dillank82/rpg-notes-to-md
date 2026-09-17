@@ -1,3 +1,4 @@
+import i18n from "../../locales/i18n"
 import { CampaignsData } from "../../schemas/RPGNotesData.schema"
 
 export const normalizeTagName = (tag: CampaignsData['subjectTags'][number], campaignName: string) => {
@@ -19,6 +20,7 @@ export const normalizeTagName = (tag: CampaignsData['subjectTags'][number], camp
 }
 
 export const generateNoteContent = (tags: string, description: string, body: string, notes: string) => {
+    const t = i18n.t
     const tagsSection = tags ? [
         '---',
         `tags: [${tags}]`,
@@ -27,7 +29,7 @@ export const generateNoteContent = (tags: string, description: string, body: str
     const parts = [
         tagsSection,
         description,
-        '# Description',
+        `# ${t('vfs:description')}`,
         body,
         notes
     ]

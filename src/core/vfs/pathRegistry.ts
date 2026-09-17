@@ -1,3 +1,5 @@
+import i18n from "../../locales/i18n"
+
 export class PathRegistry {
     maxAttemps: number
     bigPaths: string[] = []
@@ -12,7 +14,7 @@ export class PathRegistry {
         while (this.occupiedPaths.has(finalPath.toLowerCase())) {
             finalPath = basePath.replace(/.md$/, `-${counter}.md`)
             counter++
-            if (counter > this.maxAttemps) throw new Error (`Failed to resolve unique file path for "${basePath}" after 1000 attempts.`)
+            if (counter > this.maxAttemps) throw new Error (i18n.t('errors:uniquePathMaxAttemptsExceeded', basePath))
         }
         this.occupiedPaths.add(finalPath.toLowerCase())
         if (finalPath.length > 200) this.bigPaths.push(finalPath)
