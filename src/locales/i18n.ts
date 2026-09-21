@@ -29,6 +29,7 @@ i18next
         fallbackLng: 'en',
         defaultNS: 'app',
         ns: ['app, errors, vfs'],
+        debug: import.meta.env.DEV,
 
         detection: {
             order: ['localStorage', 'navigator'],
