@@ -4,7 +4,8 @@
         "selectJSON": "You need to choose .json file",
         "fileUploaded": "File uploaded and ready to convertation",
         "selectExportFile": "Choose export file from RPG Notes (.json)",
-        "removeFile": "Remove file and choose another"
+        "removeFile": "Remove file and choose another",
+        "selectedLanguageAffection": "The interface language affects the final folder names and section headings in notes"
     },
     "convert": {
         "convert": "Convert",

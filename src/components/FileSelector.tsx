@@ -90,7 +90,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
             onDrop={handleDrop}
             className={`border-2 border-dashed transition-colors rounded-sm w-[85%] ${activeStyles}`}
         >
-            <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2 w-full p-10 flex flex-col items-center text-center" aria-live="polite">
+            <label htmlFor="file-upload" className="cursor-pointer focus-within:ring-2 w-full p-10 pb-5 flex flex-col items-center text-center" aria-live="polite">
                 <input
                     type="file"
                     id="file-upload"
@@ -120,6 +120,7 @@ export const FileSelector = ({ onFileSelect, onError }: FileSelectorProps) => {
                         />
                     )
                 }
+                <p className="text-center text-[oklch(75%_0.01_258.338)] text-xs py-5">{t('fileSelection.selectedLanguageAffection')}</p>
             </label>
         </div>
     )
