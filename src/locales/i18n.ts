@@ -8,6 +8,13 @@ import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
+export const languages = ['ru', 'en'] as const
+export type Language = typeof languages[number]
+export const languageNames: Record<Language, string> = {
+  ru: 'Русский',
+  en: 'English'
+}
+
 const resources = {
     ru: {
         app: appRu,
