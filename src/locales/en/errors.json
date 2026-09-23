@@ -1,0 +1,6 @@
+{
+    "jsonOnly": "App works only with .json files",
+    "unknownError": "Unknown error",
+    "uniquePathMaxAttemptsExceeded": "Failed to resolve unique file path for \"{{basePath}}\" after 1000 attempts.",
+    "campaignDataMissing": "Incorrect file format: Campaign data is missing. Make sure you have exported the file from RPG Notes."
+}

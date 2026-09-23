@@ -1,3 +1,4 @@
+import i18n from "../../locales/i18n"
 import { RPGNotesDataMaps } from '../../interfaces/RPGNotesData'
 import { VirtualFileSystem } from '../../interfaces/VirtualFileSystem'
 import { CampaignsData } from '../../schemas/RPGNotesData.schema'
@@ -7,6 +8,8 @@ import { PathRegistry } from './pathRegistry'
 
 
 export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): { vfs: VirtualFileSystem, bigPathsWarnings: string[] } => {
+    const t = i18n.t
+
     const joinPaths = (...parts: string[]) => normalizePath(parts.join('/'))
 
     const vfs: VirtualFileSystem = {}
@@ -28,7 +31,7 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): { v
         const campaignPath = sanitizeName(campaign.name, 'campaign');
 
         (storyNotesByCampaign.get(campaign.id) || []).forEach(note => {
-            const storyNotePath = joinPaths(campaignPath, 'StoryNotes', `Note ${note.id}.md`)
+            const storyNotePath = joinPaths(campaignPath, t('vfs:storyNotes'), `${t('vfs:note')} ${note.id}.md`)
             regFile(storyNotePath, note.description)
         })
 
@@ -61,12 +64,14 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): { v
             const name1 = subjectIdToName.get(c.subject1_id)
             const name2 = subjectIdToName.get(c.subject2_id)
 
+            const connectionsHeading = `\n# ${t('vfs:connections')}`
+
             if (path1 && name2) {
-                if (!vfs[path1].includes('\n# Connections')) vfs[path1] += '\n# Connections'
+                if (!vfs[path1].includes(connectionsHeading)) vfs[path1] += connectionsHeading
                 vfs[path1] += `\n[[${name2}]] ${c.comment_1 ? ('- ' + c.comment_1) : ''}`
             }
             if (path2 && name1) {
-                if (!vfs[path2].includes('\n# Connections')) vfs[path2] += '\n# Connections'
+                if (!vfs[path2].includes(connectionsHeading)) vfs[path2] += connectionsHeading
                 vfs[path2] += `\n[[${name1}]] ${c.comment_2 ? ('- ' + c.comment_2) : ''}`
             }
         })

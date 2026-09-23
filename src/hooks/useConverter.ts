@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { converterPipeline } from "../core/converterPipeline"
+import { useTranslation } from "react-i18next"
 
 export const useConverter = () => {
+    const { t } = useTranslation()
     const [status, setStatus] = useState<'idle' | 'processing' | 'success' | 'error'>('idle')
     const [error, setError] = useState<string | null>(null)
     const [downloadUrl, setDownloadUrl] = useState<string | null>(null)
@@ -20,7 +22,7 @@ export const useConverter = () => {
             setStatus('success')
             setWarnings(bigPathsMessage)
         } catch(err) {
-            setError(err instanceof Error ? err.message : 'Unknown error')
+            setError(err instanceof Error ? err.message : t('errors:unknownError'))
             setStatus('error')
         }
     }

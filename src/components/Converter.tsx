@@ -4,8 +4,10 @@ import { FileSelector } from "./FileSelector"
 import { Button } from "./Button"
 import { MessageBox } from "./MessageBox"
 import { DownloadSection } from "./DownloadSection"
+import { useTranslation } from "react-i18next"
 
 export const Converter = () => {
+    const { t } = useTranslation()
     const [file, setFile] = useState<File | null>(null)
     const { convert, status, warnings, error, setError, downloadUrl } = useConverter()
     return (
@@ -18,7 +20,7 @@ export const Converter = () => {
                 <FileSelector onFileSelect={setFile} onError={setError} />
             )}
 
-            {status === 'processing' && <MessageBox><p>Converting...</p></MessageBox>}
+            {status === 'processing' && <MessageBox><p>{t('convert.converting')}</p></MessageBox>}
 
             {status === 'success' && downloadUrl && (
                 <MessageBox>
@@ -35,7 +37,7 @@ export const Converter = () => {
                     disabled={!file}
                     as="button"
                 >
-                    Convert
+                    {t('convert.convert')}
                 </Button>
             )}
         </main>
