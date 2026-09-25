@@ -101,30 +101,4 @@ describe('VFSBuilder', () => {
         const subject = vfs['campaign/category/subject.md']
         expect(subject.startsWith('---\ntags: [Global_tag, Local_tag/campaign]\n---')).toBe(true)
     })
-    it('should correctly add connections to files', () => {
-        const data = createMockData({
-            campaigns: [{ id: 1, name: 'campaign' }],
-            connections: [{ comment_1: 'link description', comment_2: undefined, subject1_id: 1, subject2_id: 2 }]
-        })
-        const maps = createMockMaps({
-            categoriesByParentId: new Map([[-1, [{ campaign_id: 1, parentCategory_id: -1, id: 1, name: 'category' }]]]),
-            subjectsByCategory: new Map([[1, [
-                { category_id: 1, fullDescription: '', id: 1, name: 'subject1' },
-                { category_id: 1, fullDescription: '', id: 2, name: 'subject2' }
-            ]]]),
-        })
-        const { vfs } = buildStructure(data, maps)
-        const subject1 = vfs['campaign/category/subject1.md']
-        const subject2 = vfs['campaign/category/subject2.md']
-        expect(subject1).toMatchInlineSnapshot(`
-          "# Description
-          # Connections
-          [[subject2]] - link description"
-        `)
-        expect(subject2).toMatchInlineSnapshot(`
-          "# Description
-          # Connections
-          [[subject1]] "
-        `)
-    })
 })

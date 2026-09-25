@@ -3,7 +3,7 @@ import { RPGNotesDataMaps } from '../../interfaces/RPGNotesData'
 import { VirtualFileSystem } from '../../interfaces/VirtualFileSystem'
 import { CampaignsData } from '../../schemas/RPGNotesData.schema'
 import { normalizePath, sanitizeName } from '../utils'
-import { generateNoteContent, normalizeTagName } from './generateNoteContent'
+import { appendConnectionToNote, generateNoteContent, normalizeTagName } from './generateNoteContent'
 import { PathRegistry } from './pathRegistry'
 
 
@@ -64,15 +64,11 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): { v
             const name1 = subjectIdToName.get(c.subject1_id)
             const name2 = subjectIdToName.get(c.subject2_id)
 
-            const connectionsHeading = `\n# ${t('vfs:connections')}`
-
             if (path1 && name2) {
-                if (!vfs[path1].includes(connectionsHeading)) vfs[path1] += connectionsHeading
-                vfs[path1] += `\n[[${name2}]] ${c.comment_1 ? ('- ' + c.comment_1) : ''}`
+                vfs[path1] = appendConnectionToNote(vfs[path1], name2, c.comment_1)
             }
             if (path2 && name1) {
-                if (!vfs[path2].includes(connectionsHeading)) vfs[path2] += connectionsHeading
-                vfs[path2] += `\n[[${name1}]] ${c.comment_2 ? ('- ' + c.comment_2) : ''}`
+                vfs[path2] = appendConnectionToNote(vfs[path2], name1, c.comment_2)
             }
         })
     }

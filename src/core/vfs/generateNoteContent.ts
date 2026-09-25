@@ -35,3 +35,13 @@ export const generateNoteContent = (tags: string, description: string, body: str
     ]
     return parts.filter(Boolean).join('\n')
 }
+
+export const appendConnectionToNote = (noteContent: string, linkedName: string, comment: string) => {
+    const t = i18n.t
+    const connectionsHeading = `\n# ${t('vfs:connections')}`
+
+    const withHeading = noteContent.includes(connectionsHeading) ? noteContent : noteContent + connectionsHeading
+    const commentPart = comment ? (' - ' + comment) : ''
+
+    return `${withHeading}\n[[${linkedName}]]${commentPart}`
+}

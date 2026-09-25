@@ -1,5 +1,5 @@
 import { CampaignsData } from "../../schemas/RPGNotesData.schema"
-import { generateNoteContent, normalizeTagName } from "./generateNoteContent"
+import { appendConnectionToNote, generateNoteContent, normalizeTagName } from "./generateNoteContent"
 
 describe('normalizeTagName', () => {
   const campaignName = 'Test Campaign'
@@ -75,4 +75,26 @@ describe('generateNoteContent', () => {
           > Love"
         `)
     })
+})
+
+describe('appendConnectionToNote', () => {
+  it('should add heading to note without heading', () => {
+    expect(appendConnectionToNote('NoteContent', 'Josuke', ''))
+    .toBe('NoteContent\n# Connections\n[[Josuke]]')
+  })
+  it("shouldn't duplicate the title if it already exists", () => {
+    expect(appendConnectionToNote('NoteContent\n# Connections', 'Josuke', ''))
+    .toBe('NoteContent\n# Connections\n[[Josuke]]')
+  })
+  it('should add a comment if it is passed', () => {
+    expect(appendConnectionToNote('NoteContent', 'Josuke', 'Father'))
+    .toBe('NoteContent\n# Connections\n[[Josuke]] - Father')
+  })
+  it('should correctly append several connections in a row', () => {
+    let content = 'NoteContent'
+    content = appendConnectionToNote(content, 'Josuke', 'Father')
+    content = appendConnectionToNote(content, 'Enrico', 'Enemy')
+    content = appendConnectionToNote(content, 'Emporio', 'Friend')
+    expect(content).toBe('NoteContent\n# Connections\n[[Josuke]] - Father\n[[Enrico]] - Enemy\n[[Emporio]] - Friend')
+  })
 })
