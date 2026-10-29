@@ -43,5 +43,7 @@ export const appendConnectionToNote = (noteContent: string, linkedPath: string ,
     const withHeading = noteContent.includes(connectionsHeading) ? noteContent : noteContent + connectionsHeading
     const commentPart = comment ? (' - ' + comment) : ''
 
-    return `${withHeading}\n[[${linkedPath}|${linkedName}]]${commentPart}`
+    const pathWithoutExt = linkedPath.replace(/\.md$/, '')
+
+    return `${withHeading}\n[[${pathWithoutExt}|${linkedName}]]${commentPart}`
 }
