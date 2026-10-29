@@ -64,11 +64,13 @@ export const buildStructure = (data: CampaignsData, maps: RPGNotesDataMaps): { v
             const name1 = subjectIdToName.get(c.subject1_id)
             const name2 = subjectIdToName.get(c.subject2_id)
 
-            if (path1 && name2) {
-                vfs[path1] = appendConnectionToNote(vfs[path1], name2, c.comment_1)
-            }
-            if (path2 && name1) {
-                vfs[path2] = appendConnectionToNote(vfs[path2], name1, c.comment_2)
+            if (path1 && path2) {
+                if (name2) {
+                    vfs[path1] = appendConnectionToNote(vfs[path1], path2, name2, c.comment_1)
+                }
+                if (name1) {
+                    vfs[path2] = appendConnectionToNote(vfs[path2], path1, name1, c.comment_2)
+                }
             }
         })
     }
