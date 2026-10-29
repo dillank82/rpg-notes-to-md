@@ -79,22 +79,22 @@ describe('generateNoteContent', () => {
 
 describe('appendConnectionToNote', () => {
   it('should add heading to note without heading', () => {
-    expect(appendConnectionToNote('NoteContent', 'Josuke', ''))
-    .toBe('NoteContent\n# Connections\n[[Josuke]]')
+    expect(appendConnectionToNote('NoteContent', 'chars/Josuke.md', 'Josuke', ''))
+    .toBe('NoteContent\n# Connections\n[[chars/Josuke|Josuke]]')
   })
   it("shouldn't duplicate the title if it already exists", () => {
-    expect(appendConnectionToNote('NoteContent\n# Connections', 'Josuke', ''))
-    .toBe('NoteContent\n# Connections\n[[Josuke]]')
+    expect(appendConnectionToNote('NoteContent\n# Connections', 'chars/Josuke.md', 'Josuke', ''))
+    .toBe('NoteContent\n# Connections\n[[chars/Josuke|Josuke]]')
   })
   it('should add a comment if it is passed', () => {
-    expect(appendConnectionToNote('NoteContent', 'Josuke', 'Father'))
-    .toBe('NoteContent\n# Connections\n[[Josuke]] - Father')
+    expect(appendConnectionToNote('NoteContent', 'chars/Josuke.md', 'Josuke', 'Father'))
+    .toBe('NoteContent\n# Connections\n[[chars/Josuke|Josuke]] - Father')
   })
   it('should correctly append several connections in a row', () => {
     let content = 'NoteContent'
-    content = appendConnectionToNote(content, 'Josuke', 'Father')
-    content = appendConnectionToNote(content, 'Enrico', 'Enemy')
-    content = appendConnectionToNote(content, 'Emporio', 'Friend')
-    expect(content).toBe('NoteContent\n# Connections\n[[Josuke]] - Father\n[[Enrico]] - Enemy\n[[Emporio]] - Friend')
+    content = appendConnectionToNote(content, 'chars/Josuke.md', 'Josuke', 'Father')
+    content = appendConnectionToNote(content, 'chars/villians/Enrico.md', 'Enrico', 'Enemy')
+    content = appendConnectionToNote(content, 'chars/minor/Emporio.md', 'Emporio', 'Friend')
+    expect(content).toBe('NoteContent\n# Connections\n[[chars/Josuke|Josuke]] - Father\n[[chars/villians/Enrico|Enrico]] - Enemy\n[[chars/minor/Emporio|Emporio]] - Friend')
   })
 })
